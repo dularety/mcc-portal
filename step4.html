@@ -82,18 +82,19 @@
           localStorage.setItem('mcc_payment_amount', JSON.stringify(amount));
           localStorage.setItem('mcc_registration_completed_at', JSON.stringify(new Date().toISOString()));
 
-          const sms = { to: '7979709641', text: 'Payment received for MCC application. Transaction ID: ' + txn + '. Amount: INR ' + amount, sentAt: new Date().toISOString() };
+          const sms = { to: (JSON.parse(localStorage.getItem('mcc_registration_mobile')||'"7979709641"')), text: 'Payment received for MCC application. Transaction ID: ' + txn + '. Amount: INR ' + amount, sentAt: new Date().toISOString() };
           localStorage.setItem('mcc_sms_sent', JSON.stringify(sms));
 
           const email = {
-            to: 'annipriyarolln@gmail.com',
+            to: (JSON.parse(localStorage.getItem('mcc_registration_email')||'"annipriyarolln@gmail.com"')),
             subject: 'MCC Registration Confirmation',
-            body: 'Dear ' + (JSON.parse(localStorage.getItem('mcc_registration_full_name') || '""')) + ',\n\nWe have received your payment. Transaction ID: ' + txn + '.\nAmount: INR 1000.00\n\nRegards, MCC',
+            body: 'Dear ' + (JSON.parse(localStorage.getItem('mcc_registration_full_name') || '""')) + ',\n\nWe have received your payment. Transaction ID: ' + txn + '.\nAmount: INR ' + amount + '\n\nRegards,\nMCC',
             sentAt: new Date().toISOString()
           };
           localStorage.setItem('mcc_email_sent', JSON.stringify(email));
 
-          window.location.href = 'thank-you.html';
+          // Redirect to confirmation page which shows steps 1-4 in sequence
+          window.location.href = 'confirmation.html';
         });
       })();
     </script>
