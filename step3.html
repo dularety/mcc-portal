@@ -15,15 +15,10 @@
   </header>
 
   <main class="registration-page">
-    <div class="registration-shell card-centered">
-      <div class="progress">
-        <div class="progress-info"><span class="step-badge">3</span> Step 3 of 4 — Documents</div>
-        <div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div>
-      </div>
-
+    <div class="registration-shell">
       <div class="page-heading">
-        <h1>Upload Documents</h1>
-        <p>Upload your NEET score card, birth certificate and admit card. Accepted: PDF, JPG, PNG.</p>
+        <h1>Step 3 — Upload Documents</h1>
+        <p>Upload your NEET score card, birth certificate and admit card.</p>
       </div>
 
       <form id="step3Form" class="form-card">
@@ -56,7 +51,6 @@
   </main>
 
   <script>
-    // Save file metadata to localStorage
     function handleFileInput(id, key){
       const el = document.getElementById(id);
       if(!el) return;
@@ -65,7 +59,6 @@
         if(f){ localStorage.setItem(key, JSON.stringify({ name: f.name, size: f.size, type: f.type })); }
         else localStorage.removeItem(key);
       });
-      // preload not possible for file inputs
     }
     handleFileInput('doc_score','mcc_doc_score');
     handleFileInput('doc_birth','mcc_doc_birth');

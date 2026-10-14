@@ -17,15 +17,10 @@
   </header>
 
   <main class="registration-page">
-    <div class="registration-shell card-centered">
-      <div class="progress">
-        <div class="progress-info"><span class="step-badge">1</span> Step 1 of 4 — Enter NEET Roll</div>
-        <div class="progress-bar"><div class="progress-fill" style="width:25%"></div></div>
-      </div>
-
+    <div class="registration-shell">
       <div class="page-heading">
-        <h1>Enter your NEET Roll</h1>
-        <p>Please provide your NEET roll number to proceed.</p>
+        <h1>Step 1 — Enter NEET Roll</h1>
+        <p>Enter your NEET roll number to begin registration.</p>
       </div>
 
       <form id="step1Form" class="form-card">
@@ -48,7 +43,6 @@
   </main>
 
   <script>
-    // Save roll and go to step2
     document.getElementById('step1Form').addEventListener('submit', function(e){
       e.preventDefault();
       const roll = document.getElementById('neet_roll_number').value.trim();
@@ -56,16 +50,14 @@
       if(!roll){ alert('Please enter your NEET roll number.'); return; }
       localStorage.setItem('mcc_registration_roll', JSON.stringify(roll));
       localStorage.setItem('mcc_registration_application', JSON.stringify(app));
-      // go to step2
       window.location.href = 'step2.html';
     });
 
-    // Preload if returning
     (function(){
       const existing = localStorage.getItem('mcc_registration_roll');
       if(existing){ document.getElementById('neet_roll_number').value = JSON.parse(existing); }
       const app = localStorage.getItem('mcc_registration_application');
-      if(app) document.getElementById('application_number').value = JSON.parse(app);
+      if(app){ document.getElementById('application_number').value = JSON.parse(app); }
     })();
   </script>
 

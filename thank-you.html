@@ -12,9 +12,7 @@
         <div class="icon-circle">✓</div>
         <h1>Registration Submitted</h1>
         <p id="summaryText">Loading your submission details…</p>
-
         <div id="details" class="confirmation-details"></div>
-
         <div class="registration-actions" style="margin-top:20px;justify-content:center;">
           <a href="index.html" class="primary-btn">Return to Home</a>
         </div>
@@ -51,12 +49,10 @@
             <h3>Applicant</h3>
             <p><strong>${full || '—'}</strong><br/>Roll: ${roll}<br/>Application No: ${app || '—'}</p>
           </section>
-
           <section class="card-block">
             <h3>Exam Details</h3>
-            <p>Marks: ${marks || '—'} &nbsp;•&nbsp; Rank: ${rank || '—'}</p>
+            <p>Marks: ${marks || '—'} • Rank: ${rank || '—'}</p>
           </section>
-
           <section class="card-block">
             <h3>Documents</h3>
             <ul>
@@ -65,19 +61,16 @@
               <li>Admit Card: ${docAdmit ? docAdmit.name : 'Not uploaded'}</li>
             </ul>
           </section>
-
           <section class="card-block">
             <h3>Payment</h3>
             <p>Amount: ₹${amount || '0.00'} — Transaction ID: <strong>${txn || 'N/A'}</strong></p>
           </section>
-
           <section class="card-block">
             <h3>Notifications</h3>
             <p>SMS: ${sms ? 'Sent to ' + sms.to + ' at ' + new Date(sms.sentAt).toLocaleString() : 'Not sent'}</p>
             <p>Email: ${emailSent ? 'Sent to ' + emailSent.to + ' at ' + new Date(emailSent.sentAt).toLocaleString() : 'Not sent'}</p>
             ${emailSent ? '<details><summary>View email</summary><pre>' + (emailSent.body || '') + '</pre></details>' : ''}
           </section>
-
           <p class="muted">Submitted at: ${created}</p>
         `;
       })();

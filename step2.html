@@ -15,14 +15,9 @@
   </header>
 
   <main class="registration-page">
-    <div class="registration-shell card-centered">
-      <div class="progress">
-        <div class="progress-info"><span class="step-badge">2</span> Step 2 of 4 — Candidate Details</div>
-        <div class="progress-bar"><div class="progress-fill" style="width:50%"></div></div>
-      </div>
-
+    <div class="registration-shell">
       <div class="page-heading">
-        <h1>Candidate Details</h1>
+        <h1>Step 2 — Candidate Details</h1>
         <p>We will auto-fill details for known roll numbers.</p>
       </div>
 
@@ -95,7 +90,6 @@
   </main>
 
   <script>
-    // Predefined lookup
     const rollLookup = { '2603209373': { full_name: 'ANNI PRIYA', neet_marks: '596', neet_rank: '11057' } };
 
     (function preload(){
@@ -105,13 +99,11 @@
         document.getElementById('full_name').value = info.full_name;
         document.getElementById('neet_marks').value = info.neet_marks;
         document.getElementById('neet_rank').value = info.neet_rank;
-        // also save these
         localStorage.setItem('mcc_registration_full_name', JSON.stringify(info.full_name));
         localStorage.setItem('mcc_registration_neet_marks', JSON.stringify(info.neet_marks));
         localStorage.setItem('mcc_registration_neet_rank', JSON.stringify(info.neet_rank));
       }
 
-      // load any saved values
       const saved = (key)=>{ const v = localStorage.getItem(key); return v?JSON.parse(v):'' };
       document.getElementById('date_of_birth').value = saved('mcc_registration_dob');
       document.getElementById('category').value = saved('mcc_registration_category');
@@ -119,7 +111,6 @@
       document.getElementById('mobile_number').value = saved('mcc_registration_mobile');
       document.getElementById('email').value = saved('mcc_registration_email');
       document.getElementById('address').value = saved('mcc_registration_address');
-      // if full name/marks/rank saved earlier
       const full = saved('mcc_registration_full_name'); if(full) document.getElementById('full_name').value = full;
       const marks = saved('mcc_registration_neet_marks'); if(marks) document.getElementById('neet_marks').value = marks;
       const rank = saved('mcc_registration_neet_rank'); if(rank) document.getElementById('neet_rank').value = rank;
@@ -127,7 +118,6 @@
 
     document.getElementById('step2Form').addEventListener('submit', function(e){
       e.preventDefault();
-      // minimal validation
       const full = document.getElementById('full_name').value.trim();
       if(!full){ alert('Enter full name'); return; }
       localStorage.setItem('mcc_registration_full_name', JSON.stringify(full));
@@ -139,7 +129,6 @@
       localStorage.setItem('mcc_registration_mobile', JSON.stringify(document.getElementById('mobile_number').value.trim()));
       localStorage.setItem('mcc_registration_email', JSON.stringify(document.getElementById('email').value.trim()));
       localStorage.setItem('mcc_registration_address', JSON.stringify(document.getElementById('address').value.trim()));
-
       window.location.href = 'step3.html';
     });
   </script>
