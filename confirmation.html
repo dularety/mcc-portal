@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MCC Portal — Confirmation</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="gov-header">
+    <div class="gov-left">
+      <div class="logo-mark" aria-hidden="true">MCC</div>
+      <div class="gov-title">
+        <div class="org">Medical Counselling Committee (MCC), DGHS</div>
+      </div>
+    </div>
+    <div class="gov-right">
+      <div class="e-counselling"><div class="e-badge">e</div><div class="e-text">Counselling Services</div></div>
+    </div>
+  </header>
+
+  <nav class="main-nav">
+    <div class="main-nav__inner">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="step1.html" class="nav-link active">New Registration</a>
+    </div>
+  </nav>
+
+  <main class="page-shell">
+    <div class="registration-shell">
+      <h1>Confirmation — Registration Summary</h1>
+      <p class="muted">Below is the information you submitted in each step. Keep this for your records.</p>
+
+      <div class="confirm-steps" id="confirmSteps">
+        <!-- Step cards will be populated by JS -->
+      </div>
+
+      <div style="margin-top:18px; display:flex; gap:12px; flex-wrap:wrap;">
+        <button id="printBtn" class="primary-btn">Print / Save PDF</button>
+        <a href="index.html" class="secondary-btn">Return Home</a>
+        <a href="step1.html" class="secondary-btn">Start Another Registration</a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    (function(){
+      function get(key){ const v = localStorage.getItem(key); return v ? JSON.parse(v) : null; }
+
+      const data = {
+        application: get('mcc_registration_application'),
+        roll: get('mcc_registration_roll'),
+        full_name: get('mcc_registration_full_name'),
+        neet_marks: get('mcc_registration_neet_marks'),
+        neet_rank: get('mcc_registration_neet_rank'),
+        dob: get('mcc_registration_dob'),
+        category: get('mcc_registration_category'),
+        gender: get('mcc_registration_gender'),
+        mobile: get('mcc_registration_mobile'),
+        email: get('mcc_registration_email'),
+        address: get('mcc_registration_address'),
+        notes: get('mcc_registration_notes'),
+        doc_score: get('mcc_doc_score'),
+        doc_birth: get('mcc_doc_birth'),
+        doc_admit: get('mcc_doc_admit'),
+        payment_txn: get('mcc_payment_txn'),
+        payment_amount: get('mcc_payment_amount'),
+        sms: get('mcc_sms_sent'),
+        email_sent: get('mcc_email_sent'),
+        completed_at: get('mcc_registration_completed_at')
+      };
+
+      function safe(v){ return v===null || v===undefined || v==='' ? '—' : v; }
+      function docName(d){ if(!d) return 'Not uploaded'; if(typeof d === 'string') return d; return d.name || JSON.stringify(d); }
+
+      const steps = [
+        {
+          title: 'Step 1 — Application & Roll',
+          rows: [
+            ['Application Number', safe(data.application)],
+            ['NEET Roll Number', safe(data.roll)]
+          ]
+        },
+        {
+          title: 'Step 2 — Candidate Details',
+          rows: [
+            ['Full Name', safe(data.full_name)],
+            ['NEET Marks / Rank', safe(data.neet_marks) + ' / ' + safe(data.neet_rank)],
+            ['Date of Birth', safe(data.dob)],
+            ['Category', safe(data.category)],
+            ['Gender', safe(data.gender)],
+            ['Email / Mobile', safe(data.email) + ' / ' + safe(data.mobile)],
+            ['Permanent Address', safe(data.address)]
+          ]
+        },
+        {
+          title: 'Step 3 — Documents',
+          rows: [
+            ['NEET Score Card', docName(data.doc_score)],
+            ['Birth Certificate', docName(data.doc_birth)],
+            ['NEET Admit Card', docName(data.doc_admit)],
+            ['Notes', safe(data.notes)]
+          ]
+        },
+        {
+          title: 'Step 4 — Payment & Confirmation',
+          rows: [
+            ['Payment Amount', data.payment_amount ? '₹' + data.payment_amount : 'Pending'],
+            ['Transaction ID', safe(data.payment_txn)],
+            ['SMS (simulated)', data.sms ? (safe(data.sms.to) + ': ' + safe(data.sms.text)) : 'No SMS recorded'],
+            ['Confirmation Email (simulated)', data.email_sent ? (safe(data.email_sent.to) + ': ' + safe(data.email_sent.subject)) : 'No email recorded'],
+            ['Submitted At', data.completed_at ? new Date(data.completed_at).toLocaleString() : 'Pending']
+          ]
+        }
+      ];
+
+      const container = document.getElementById('confirmSteps');
+      steps.forEach(function(s){
+        const card = document.createElement('section');
+        card.className = 'registration-shell';
+        const h = document.createElement('h2'); h.textContent = s.title; h.style.marginTop = '0'; card.appendChild(h);
+        const dl = document.createElement('dl');
+        s.rows.forEach(function(r){
+          const dt = document.createElement('dt'); dt.textContent = r[0]; dt.style.fontWeight = '700'; dt.style.marginTop = '8px';
+          const dd = document.createElement('dd'); dd.innerHTML = r[1]; dd.style.margin = '0 0 8px 0';
+          dl.appendChild(dt); dl.appendChild(dd);
+        });
+        card.appendChild(dl);
+        container.appendChild(card);
+      });
+
+      document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
+    })();
+  </script>
+</body>
+</html>
