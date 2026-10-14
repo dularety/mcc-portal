@@ -31,14 +31,122 @@
       </div>
     </nav>
 
-    <main class="page-shell page-home">
-      <div class="home-panel">
-        <h1>Welcome to the MCC Registration Portal</h1>
-        <p>Please complete the registration process in four steps.</p>
-        <a class="primary-btn large-btn" href="step1.html">Start New Registration</a>
+    <main class="page-shell">
+      <div class="content-grid">
+        <section class="primary-panel">
+          <div class="login-card">
+            <div class="login-header">
+              <div class="lock-icon" aria-hidden="true">🔒</div>
+              <h1>Registered Candidates Sign-In</h1>
+              <button type="button" class="secure-btn">SECURE LOGIN</button>
+            </div>
+
+            <form class="login-form" action="step1.html">
+              <div class="field-row">
+                <label class="field-label">Counselling <span class="required">*</span></label>
+                <div class="input-box select-box">
+                  <select>
+                    <option>NEET UG Counselling for MBBS, BDS &amp; B.Sc. Nursing 2026</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field-row">
+                <label class="field-label">NEET UG Roll Number <span class="required">*</span></label>
+                <div class="input-box with-icon">
+                  <span class="input-icon">🗂</span>
+                  <input type="text" placeholder="Enter NEET UG Roll Number" />
+                </div>
+              </div>
+
+              <div class="field-row">
+                <label class="field-label">Password <span class="required">*</span></label>
+                <div class="input-box with-icon">
+                  <span class="input-icon">🔒</span>
+                  <input type="password" placeholder="Enter Password" />
+                </div>
+              </div>
+
+              <div class="field-row captcha-row">
+                <label class="field-label">Security Pin <span class="required">*</span></label>
+                <div class="captcha-wrap">
+                  <div class="captcha-box">
+                    <span class="captcha-text">054365</span>
+                    <button class="refresh-captcha" type="button" aria-label="Refresh captcha">↻</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="field-row">
+                <label class="field-label">&nbsp;</label>
+                <div class="input-box">
+                  <input type="text" placeholder="Enter Security Pin" />
+                </div>
+              </div>
+
+              <div class="security-note">✓ Security Pin is case sensitive</div>
+
+              <div class="audio-row">
+                <button type="button" class="audio-btn" aria-label="Listen Security Pin Audio">▶</button>
+                <span>0:00 / 0:05</span>
+                <div class="audio-slider"><span></span></div>
+              </div>
+
+              <div class="submit-row">
+                <button type="submit" class="primary-btn sign-btn">Sign In</button>
+                <a href="#" class="forget-link">Forgot Password ?</a>
+              </div>
+            </form>
+
+            <div class="new-candidate-box">
+              <div class="candidate-box-left">
+                <div class="small-icon">👤</div>
+                <div>
+                  <div class="new-candidate-title">New Candidate</div>
+                  <div class="new-candidate-sub">Registration</div>
+                  <div class="new-candidate-desc">Apply for the first time</div>
+                </div>
+              </div>
+              <a href="step1.html" class="orange-btn">New Candidate Registration</a>
+            </div>
+          </div>
+        </section>
+
+        <aside class="sidebar-panel">
+          <div class="instruction-card">
+            <h2>Important Instructions</h2>
+            <ul>
+              <li>
+                <strong>Password Confidentiality:</strong>
+                <div>Confidentiality of Password is solely responsibility of the candidate and all care must be taken to protect the password.</div>
+              </li>
+              <li>
+                <strong>Change Password:</strong>
+                <div>Candidates are advised to keep changing the Password at frequent intervals.</div>
+              </li>
+              <li>
+                <strong>Beware of Phishing:</strong>
+                <div>Never share your password and do not respond to any mail which asks you for your Login-ID/Password.</div>
+              </li>
+              <li>
+                <strong>OTP Security:</strong>
+                <div>It is strongly recommended that the OTP sent to the applicant for any activity like reset password etc. must not be shared with anyone.</div>
+              </li>
+              <li>
+                <strong>Session Security:</strong>
+                <div>For security reasons, after finishing your work, click the LOGOUT button and close all the windows related to your session.</div>
+              </li>
+            </ul>
+
+            <div class="caution-box">
+              <div class="caution-mark">⚠</div>
+              <div>
+                <strong>Caution:</strong> Your IP address 49.37.24.146 is being monitored for security purpose.
+              </div>
+            </div>
+          </div>
+        </aside>
       </div>
     </main>
-
-    <script src="script.js"></script>
   </body>
 </html>
