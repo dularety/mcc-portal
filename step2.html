@@ -14,6 +14,13 @@
     </div>
   </header>
 
+  <nav class="main-nav">
+    <div class="main-nav__inner">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link active" href="step2.html">New Registration</a>
+    </div>
+  </nav>
+
   <main class="registration-page">
     <div class="registration-shell">
       <div class="page-heading">
@@ -21,7 +28,14 @@
         <p>We will auto-fill details for known roll numbers.</p>
       </div>
 
-      <form id="step2Form" class="form-card">
+      <div class="steps-indicator">
+        <button class="step-ind">1<br/><small>Roll</small></button>
+        <button class="step-ind active">2<br/><small>Details</small></button>
+        <button class="step-ind">3<br/><small>Documents</small></button>
+        <button class="step-ind">4<br/><small>Payment</small></button>
+      </div>
+
+      <form id="step2Form" class="registration-form">
         <div class="form-grid">
           <label>
             <span>Full Name</span>
@@ -129,6 +143,7 @@
       localStorage.setItem('mcc_registration_mobile', JSON.stringify(document.getElementById('mobile_number').value.trim()));
       localStorage.setItem('mcc_registration_email', JSON.stringify(document.getElementById('email').value.trim()));
       localStorage.setItem('mcc_registration_address', JSON.stringify(document.getElementById('address').value.trim()));
+
       window.location.href = 'step3.html';
     });
   </script>
