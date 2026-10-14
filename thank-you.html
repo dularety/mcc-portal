@@ -32,10 +32,33 @@
     </nav>
 
     <main class="page-shell">
-      <div class="thankyou-box" id="confirmationBox">
-        <h1>Registration Submitted</h1>
-        <p id="summaryText">Your registration request has been received successfully.</p>
-        <div id="details"></div>
+      <div class="content-grid">
+        <section class="primary-panel">
+          <div class="thankyou-box" id="confirmationBox">
+            <h1>Registration Submitted</h1>
+            <p id="summaryText">Thank you — your registration has been received.</p>
+
+            <div id="details"></div>
+
+            <div style="margin-top:18px; display:flex; gap:12px;">
+              <a class="primary-btn" href="step1.html">Start Another Registration</a>
+              <a class="secondary-btn" href="index.html">Return Home</a>
+            </div>
+          </div>
+        </section>
+
+        <aside class="sidebar-panel">
+          <div class="instruction-card">
+            <h2>Important Instructions</h2>
+            <ul>
+              <li><strong>Password Confidentiality:</strong> Confidentiality of Password is solely responsibility of the candidate and all care must be taken to protect the password.</li>
+              <li><strong>Change Password:</strong> Candidates are advised to keep changing the Password at frequent intervals.</li>
+              <li><strong>Beware of Phishing:</strong> Never share your password and do not respond to any mail which asks you for your Login-ID/Password.</li>
+              <li><strong>OTP Security:</strong> It is strongly recommended that the OTP sent to the applicant for any activity like reset password etc. must not be shared with anyone.</li>
+              <li><strong>Session Security:</strong> For security reasons, after finishing your work, click the LOGOUT button and close all the windows related to your session.</li>
+            </ul>
+          </div>
+        </aside>
       </div>
     </main>
 
@@ -46,37 +69,45 @@
           return v ? JSON.parse(v) : null;
         }
 
-        const roll = get('mcc_registration_roll');
-        const full = get('mcc_registration_full_name');
-        const marks = get('mcc_registration_neet_marks');
-        const rank = get('mcc_registration_neet_rank');
-        const app = get('mcc_registration_application');
-        const email = get('mcc_registration_email');
-        const mobile = get('mcc_registration_mobile');
-        const address = get('mcc_registration_address');
-        const txn = get('mcc_payment_txn');
-        const amount = get('mcc_payment_amount');
-        const sms = get('mcc_sms_sent');
-        const emailSent = get('mcc_email_sent');
-        const completed = get('mcc_registration_completed_at');
+        // gather all fields from steps 1-4
+        const data = {
+          application_no: get('mcc_registration_application'),
+          neet_roll: get('mcc_registration_roll'),
+          full_name: get('mcc_registration_full_name'),
+          neet_marks: get('mcc_registration_neet_marks'),
+          neet_rank: get('mcc_registration_neet_rank'),
+          dob: get('mcc_registration_dob'),
+          category: get('mcc_registration_category'),
+          gender: get('mcc_registration_gender'),
+          mobile: get('mcc_registration_mobile'),
+          email: get('mcc_registration_email'),
+          address: get('mcc_registration_address'),
+          notes: get('mcc_registration_notes'),
+          doc_score: get('mcc_doc_score'),
+          doc_birth: get('mcc_doc_birth'),
+          doc_admit: get('mcc_doc_admit'),
+          payment_txn: get('mcc_payment_txn'),
+          payment_amount: get('mcc_payment_amount'),
+          sms: get('mcc_sms_sent'),
+          email_sent: get('mcc_email_sent'),
+          completed_at: get('mcc_registration_completed_at')
+        };
 
-        document.getElementById('summaryText').textContent = 'Your registration and payment are confirmed. Transaction ID: ' + (txn || 'N/A');
+        // Summary text
+        const summary = [];
+        if (data.full_name) summary.push(data.full_name);
+        if (data.neet_roll) summary.push('Roll: ' + data.neet_roll);
+        if (data.payment_txn) summary.push('Txn: ' + data.payment_txn);
+        document.getElementById('summaryText').textContent = summary.length ? summary.join(' — ') : 'Your registration request has been received successfully.';
 
+        // build details block
         const detailsEl = document.getElementById('details');
-        detailsEl.innerHTML = `
-          <dl>
-            <dt>Application No</dt><dd>${app || '—'}</dd>
-            <dt>NEET Roll</dt><dd>${roll || '—'}</dd>
-            <dt>Name</dt><dd>${full || '—'}</dd>
-            <dt>Marks / Rank</dt><dd>${marks || '—'} / ${rank || '—'}</dd>
-            <dt>Email / Mobile</dt><dd>${email || '—'} / ${mobile || '—'}</dd>
-            <dt>Address</dt><dd>${address || '—'}</dd>
-            <dt>Payment</dt><dd>Amount: ₹${amount || '0.00'} — Transaction ID: ${txn || 'N/A'}</dd>
-            <dt>SMS</dt><dd>${sms ? '<code>' + sms.text + '</code>' : 'No SMS sent'}</dd>
-            <dt>Email</dt><dd>${emailSent ? '<strong>' + emailSent.subject + '</strong><br/><pre>' + emailSent.body + '</pre>' : 'No email sent'}</dd>
-            <dt>Submitted At</dt><dd>${completed ? new Date(completed).toLocaleString() : 'Pending'}</dd>
-          </dl>
-        `;
+        function row(label, val){ return '<dt>'+label+'</dt><dd>'+ (val||'—') +'</dd>'; }
+
+        const docName = (d)=> d ? (d.name || JSON.stringify(d)) : 'Not uploaded';
+
+        detailsEl.innerHTML = `\n          <dl>\n            ${row('Application No', data.application_no)}\n            ${row('NEET Roll', data.neet_roll)}\n            ${row('Name', data.full_name)}\n            ${row('Marks / Rank', (data.neet_marks||'—') + ' / ' + (data.neet_rank||'—'))}\n            ${row('DOB', data.dob)}\n            ${row('Category', data.category)}\n            ${row('Gender', data.gender)}\n            ${row('Email / Mobile', (data.email||'—') + ' / ' + (data.mobile||'—'))}\n            ${row('Address', data.address)}\n            ${row('Notes', data.notes)}\n            ${row('NEET Score Card', docName(data.doc_score))}\n            ${row('Birth Certificate', docName(data.doc_birth))}\n            ${row('NEET Admit Card', docName(data.doc_admit))}\n            ${row('Payment', data.payment_amount ? ('₹'+data.payment_amount + ' — ' + (data.payment_txn||'N/A')) : 'Pending'}\n            ${row('SMS Sent', data.sms ? (data.sms.to + ': ' + (data.sms.text||'') ) : 'No SMS recorded')}\n            ${row('Confirmation Email', data.email_sent ? (data.email_sent.to + ': ' + (data.email_sent.subject||'') ) : 'No email recorded')}\n            ${row('Submitted At', data.completed_at ? new Date(data.completed_at).toLocaleString() : 'Pending')}\n          </dl>\n        `;
+
       })();
     </script>
   </body>
