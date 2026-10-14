@@ -15,19 +15,28 @@
   </header>
 
   <main class="registration-page">
-    <div class="registration-shell">
+    <div class="registration-shell card-centered">
+      <div class="progress">
+        <div class="progress-info"><span class="step-badge">4</span> Step 4 of 4 — Payment</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+      </div>
+
       <div class="page-heading">
-        <h1>Step 4 — Payment</h1>
-        <p>Pay the registration fee of Rs 1000. Use the QR code below (demo).</p>
+        <h1>Payment</h1>
+        <p>Pay the registration fee of Rs 1000. Use the QR code below (demo only).</p>
       </div>
 
-      <div class="qr-wrap">
-        <img id="paymentQr" alt="Payment QR code" src="" />
-      </div>
+      <div class="payment-card form-card">
+        <div class="qr-wrap">
+          <img id="paymentQr" alt="Payment QR code" src="" />
+        </div>
 
-      <div class="registration-actions">
-        <a href="step3.html" class="secondary-btn">Back</a>
-        <button id="confirmPayment" class="primary-btn">I have paid</button>
+        <div class="muted" style="text-align:center;margin-top:12px;">After completing payment in your app, click "I have paid" to finish registration.</div>
+
+        <div class="registration-actions" style="margin-top:18px;">
+          <a href="step3.html" class="secondary-btn">Back</a>
+          <button id="confirmPayment" class="primary-btn">I have paid</button>
+        </div>
       </div>
 
     </div>

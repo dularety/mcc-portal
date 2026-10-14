@@ -8,11 +8,14 @@
   </head>
   <body>
     <main class="thankyou-page">
-      <div class="thankyou-box" id="confirmationBox">
+      <div class="thankyou-box">
+        <div class="icon-circle">✓</div>
         <h1>Registration Submitted</h1>
         <p id="summaryText">Loading your submission details…</p>
-        <div id="details"></div>
-        <div style="margin-top:18px;">
+
+        <div id="details" class="confirmation-details"></div>
+
+        <div class="registration-actions" style="margin-top:20px;justify-content:center;">
           <a href="index.html" class="primary-btn">Return to Home</a>
         </div>
       </div>
@@ -44,25 +47,38 @@
         const detailsDiv = document.getElementById('details');
         const created = completed ? new Date(completed).toLocaleString() : 'N/A';
         detailsDiv.innerHTML = `
-          <dl>
-            <dt>Application No</dt><dd>${app || '—'}</dd>
-            <dt>NEET Roll</dt><dd>${roll}</dd>
-            <dt>Name</dt><dd>${full || '—'}</dd>
-            <dt>Marks / Rank</dt><dd>${marks || '—'} / ${rank || '—'}</dd>
-            <dt>Email / Mobile</dt><dd>${email || '—'} / ${mobile || '—'}</dd>
-            <dt>Address</dt><dd>${addr || '—'}</dd>
-            <dt>Documents submitted</dt><dd>
-              <ul>
-                <li>Score Card: ${docScore ? docScore.name : 'Not uploaded'}</li>
-                <li>Birth Certificate: ${docBirth ? docBirth.name : 'Not uploaded'}</li>
-                <li>Admit Card: ${docAdmit ? docAdmit.name : 'Not uploaded'}</li>
-              </ul>
-            </dd>
-            <dt>Payment</dt><dd>Amount: ₹${amount || '0.00'} — Transaction ID: ${txn || 'N/A'}</dd>
-            <dt>SMS sent</dt><dd>${sms ? 'Yes — sent to ' + sms.to + ' at ' + new Date(sms.sentAt).toLocaleString() + '<br/><code>' + sms.text + '</code>' : 'No'}</dd>
-            <dt>Email sent</dt><dd>${emailSent ? 'Yes — sent to ' + emailSent.to + ' at ' + new Date(emailSent.sentAt).toLocaleString() + '<br/><code>' + (emailSent.subject || '') + '</code><pre>' + (emailSent.body || '') + '</pre>' : 'No'}</dd>
-            <dt>Submitted At</dt><dd>${created}</dd>
-          </dl>
+          <section class="card-block">
+            <h3>Applicant</h3>
+            <p><strong>${full || '—'}</strong><br/>Roll: ${roll}<br/>Application No: ${app || '—'}</p>
+          </section>
+
+          <section class="card-block">
+            <h3>Exam Details</h3>
+            <p>Marks: ${marks || '—'} &nbsp;•&nbsp; Rank: ${rank || '—'}</p>
+          </section>
+
+          <section class="card-block">
+            <h3>Documents</h3>
+            <ul>
+              <li>Score Card: ${docScore ? docScore.name : 'Not uploaded'}</li>
+              <li>Birth Certificate: ${docBirth ? docBirth.name : 'Not uploaded'}</li>
+              <li>Admit Card: ${docAdmit ? docAdmit.name : 'Not uploaded'}</li>
+            </ul>
+          </section>
+
+          <section class="card-block">
+            <h3>Payment</h3>
+            <p>Amount: ₹${amount || '0.00'} — Transaction ID: <strong>${txn || 'N/A'}</strong></p>
+          </section>
+
+          <section class="card-block">
+            <h3>Notifications</h3>
+            <p>SMS: ${sms ? 'Sent to ' + sms.to + ' at ' + new Date(sms.sentAt).toLocaleString() : 'Not sent'}</p>
+            <p>Email: ${emailSent ? 'Sent to ' + emailSent.to + ' at ' + new Date(emailSent.sentAt).toLocaleString() : 'Not sent'}</p>
+            ${emailSent ? '<details><summary>View email</summary><pre>' + (emailSent.body || '') + '</pre></details>' : ''}
+          </section>
+
+          <p class="muted">Submitted at: ${created}</p>
         `;
       })();
     </script>

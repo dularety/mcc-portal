@@ -15,13 +15,18 @@
   </header>
 
   <main class="registration-page">
-    <div class="registration-shell">
-      <div class="page-heading">
-        <h1>Step 3 — Upload Documents</h1>
-        <p>Upload your NEET score card, birth certificate and admit card.</p>
+    <div class="registration-shell card-centered">
+      <div class="progress">
+        <div class="progress-info"><span class="step-badge">3</span> Step 3 of 4 — Documents</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div>
       </div>
 
-      <form id="step3Form">
+      <div class="page-heading">
+        <h1>Upload Documents</h1>
+        <p>Upload your NEET score card, birth certificate and admit card. Accepted: PDF, JPG, PNG.</p>
+      </div>
+
+      <form id="step3Form" class="form-card">
         <label>
           <span>NEET Score Card (PDF/JPG)</span>
           <input id="doc_score" name="doc_score" type="file" accept=".pdf,image/*" />
