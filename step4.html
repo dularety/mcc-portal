@@ -5,6 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MCC Portal — Payment</title>
     <link rel="stylesheet" href="styles.css" />
+    <style>
+      .qr-merchant {
+        max-width: 620px;
+        margin: 20px auto 0;
+        background: #f2f3f4;
+        border-radius: 18px;
+        padding: 30px 30px 18px;
+      }
+      .qr-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        margin-bottom: 24px;
+      }
+      .qr-avatar {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: #5a3b2e;
+        color: #fff;
+        font-size: 2.1rem;
+        font-weight: 700;
+      }
+      .qr-merchant-name {
+        font-size: clamp(2.2rem, 3vw, 3rem);
+        font-weight: 700;
+        color: #1f2430;
+        letter-spacing: -0.04em;
+      }
+      .qr-box {
+        width: min(520px, 82vw);
+        margin: 0 auto;
+        border-radius: 18px;
+        padding: 18px;
+        background: #fff;
+        border: 1px solid #dfe5ea;
+        box-shadow: inset 0 0 0 1px rgba(0,0,0,0.01);
+      }
+      .qr-box img {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-width: 520px;
+        max-height: 520px;
+        margin: 0 auto;
+        background: #fff;
+      }
+      .upi-id-label {
+        margin-top: 18px;
+        text-align: center;
+        font-size: clamp(1.35rem, 2vw, 2rem);
+        font-weight: 500;
+        color: #1f2430;
+      }
+      .upi-id-label strong {
+        font-weight: 700;
+      }
+      .scan-pay-label {
+        margin-top: 26px;
+        text-align: center;
+        font-size: clamp(1.1rem, 1.8vw, 2.1rem);
+        color: #2b3745;
+      }
+      @media (max-width: 620px) {
+        .qr-merchant {
+          padding: 20px 14px 12px;
+        }
+        .qr-header {
+          gap: 10px;
+        }
+        .qr-avatar {
+          width: 48px;
+          height: 48px;
+          font-size: 1.7rem;
+        }
+      }
+    </style>
   </head>
   <body>
     <header class="gov-header">
@@ -40,11 +120,20 @@
               <button type="button" class="secure-btn">Rs 1000</button>
             </div>
 
-            <p class="muted" style="margin:0 0 14px; font-size:1.05rem;">Scan the QR code to pay the application fee using UPI or payment app.</p>
+            <div class="qr-merchant">
+              <div class="qr-header">
+                <div class="qr-avatar">S</div>
+                <div class="qr-merchant-name">Seema Pandey</div>
+              </div>
 
-            <div class="qr-wrap">
-              <img id="paymentQr" alt="Payment QR code" src="" />
+              <div class="qr-box">
+                <img id="paymentQr" alt="UPI QR code" src="" />
+              </div>
+
+              <div class="upi-id-label">UPI ID: <strong>seemapandeyqwerty@okicici</strong></div>
             </div>
+
+            <div class="scan-pay-label">Scan to pay with any UPI app</div>
 
             <div class="registration-actions">
               <a href="step3.html" class="secondary-btn">Back</a>
@@ -72,8 +161,11 @@
       (function(){
         const roll = JSON.parse(localStorage.getItem('mcc_registration_roll') || 'null') || '';
         const amount = '1000.00';
-        const paymentPayload = 'MCC|PAY|AMOUNT=' + amount + '|ROLL=' + roll + '|DATE=' + new Date().toISOString();
-        const qrUrl = 'https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=' + encodeURIComponent(paymentPayload);
+        const upiId = 'seemapandeyqwerty@okicici';
+        const name = 'Seema%20Pandey';
+        const note = encodeURIComponent('MCC Registration ' + roll);
+        const upiLink = 'upi://pay?pa=' + upiId + '&pn=' + name + '&am=' + amount + '&cu=INR&tn=' + note;
+        const qrUrl = 'https://chart.googleapis.com/chart?cht=qr&chs=600x600&chl=' + encodeURIComponent(upiLink);
         document.getElementById('paymentQr').src = qrUrl;
 
         document.getElementById('confirmPayment').addEventListener('click', function(){
@@ -82,18 +174,21 @@
           localStorage.setItem('mcc_payment_amount', JSON.stringify(amount));
           localStorage.setItem('mcc_registration_completed_at', JSON.stringify(new Date().toISOString()));
 
-          const sms = { to: (JSON.parse(localStorage.getItem('mcc_registration_mobile')||'"7979709641"')), text: 'Payment received for MCC application. Transaction ID: ' + txn + '. Amount: INR ' + amount, sentAt: new Date().toISOString() };
+          const sms = {
+            to: (JSON.parse(localStorage.getItem('mcc_registration_mobile') || '"7979709641"')),
+            text: 'Payment received for MCC application. Transaction ID: ' + txn + '. Amount: INR ' + amount,
+            sentAt: new Date().toISOString()
+          };
           localStorage.setItem('mcc_sms_sent', JSON.stringify(sms));
 
           const email = {
-            to: (JSON.parse(localStorage.getItem('mcc_registration_email')||'"annipriyarolln@gmail.com"')),
+            to: (JSON.parse(localStorage.getItem('mcc_registration_email') || '"annipriyarolln@gmail.com"')),
             subject: 'MCC Registration Confirmation',
             body: 'Dear ' + (JSON.parse(localStorage.getItem('mcc_registration_full_name') || '""')) + ',\n\nWe have received your payment. Transaction ID: ' + txn + '.\nAmount: INR ' + amount + '\n\nRegards,\nMCC',
             sentAt: new Date().toISOString()
           };
           localStorage.setItem('mcc_email_sent', JSON.stringify(email));
 
-          // Redirect to confirmation page which shows steps 1-4 in sequence
           window.location.href = 'confirmation.html';
         });
       })();
