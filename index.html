@@ -3,116 +3,134 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>MCC Portal — Registered Candidate Sign-In</title>
-    <meta name="description" content="Medical Counselling Committee (MCC) portal mockup" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <title>MCC Portal | Candidate Sign In</title>
+    <meta
+      name="description"
+      content="Medical Counselling Committee portal for candidate registration and counselling services"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header class="gov-header">
       <div class="gov-left">
         <div class="logo-mark" aria-hidden="true">MCC</div>
         <div class="gov-title">
-          <div class="org">Medical Counselling Committee (MCC), DGHS</div>
-          <div class="subtitle">Ministry of Health &amp; Family Welfare, Government of India</div>
-          <div class="cycle">NEET UG Counselling for MBBS, BDS &amp; B.Sc. Nursing 2026</div>
+          <p class="gov-kicker">Medical Counselling Committee (MCC), DGHS</p>
+          <p class="gov-subtitle">Ministry of Health &amp; Family Welfare, Government of India</p>
+          <p class="gov-cycle">NEET UG Counselling for MBBS, BDS &amp; B.Sc. Nursing 2026</p>
         </div>
       </div>
       <div class="gov-right">
-        <div class="ecounsel">
-          <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='72' height='42'><rect rx='6' width='72' height='42' fill='%23e33'/><text x='50%' y='55%' font-size='18' fill='white' text-anchor='middle' font-family='Arial'>e</text></svg>" alt="e-Counselling logo" />
-          <div class="ecoun-text">e-Counselling Services</div>
+        <div class="e-counselling">
+          <div class="e-badge">e</div>
+          <div class="e-text">Counselling Services</div>
         </div>
       </div>
     </header>
 
     <nav class="main-nav">
-      <div class="nav-inner">
-        <a class="nav-item active" href="#">Home</a>
-        <a class="nav-item" href="#">Help</a>
-        <a class="nav-item" href="#">Contact</a>
+      <div class="main-nav__inner">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="#" class="nav-link">Help</a>
+        <a href="#" class="nav-link">Contact</a>
       </div>
     </nav>
 
-    <main class="page">
-      <div class="container">
-        <section class="signin-column">
-          <div class="signin-card">
-            <div class="signin-header">
+    <main class="page-shell">
+      <div class="content-grid">
+        <section class="primary-panel">
+          <div class="login-card">
+            <div class="login-header">
               <h1>Registered Candidates Sign-In</h1>
-              <button class="secure">SECURE LOGIN</button>
+              <button class="secure-btn" type="button">SECURE LOGIN</button>
             </div>
 
-            <form id="loginForm" class="login-form" autocomplete="off">
+            <form id="loginForm" class="login-form" method="get" action="#">
               <label class="field">
-                <span class="label-text">Counselling <span class="required">*</span></span>
-                <select name="counselling">
+                <span class="field-label">Counselling <span class="required">*</span></span>
+                <select name="counselling" aria-label="Counselling option">
                   <option>NEET UG Counselling for MBBS, BDS &amp; B.Sc. Nursing 2026</option>
                 </select>
               </label>
 
               <label class="field">
-                <span class="label-text">NEET UG Roll Number <span class="required">*</span></span>
-                <input name="roll" type="text" placeholder="Enter NEET UG Roll Number" required>
+                <span class="field-label">NEET UG Roll Number <span class="required">*</span></span>
+                <input type="text" name="roll_number" placeholder="Enter NEET UG Roll Number" required />
               </label>
 
               <label class="field">
-                <span class="label-text">Password <span class="required">*</span></span>
-                <input name="password" type="password" placeholder="Enter Password" required>
+                <span class="field-label">Password <span class="required">*</span></span>
+                <input type="password" name="password" placeholder="Enter Password" required />
               </label>
 
               <div class="security-row">
-                <div class="captcha">
-                  <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='48'><rect width='100%' height='100%' fill='%23f0f4f8'/><text x='50%' y='60%' font-family='Inter, Arial' font-size='26' text-anchor='middle' fill='%23045aa6'>054365</text></svg>" alt="security pin" />
-                  <button type="button" id="refreshCaptcha" aria-label="Refresh captcha">⟳</button>
+                <div class="captcha-box" aria-label="Captcha area">
+                  <div class="captcha-text">054365</div>
+                  <button type="button" id="refreshCaptcha" aria-label="Refresh captcha">↻</button>
                 </div>
 
-                <label class="field small">
-                  <span class="label-text">Security Pin <span class="required">*</span></span>
-                  <input name="pin" type="text" placeholder="Enter Security Pin" required>
+                <label class="field field-mini">
+                  <span class="field-label">Security Pin <span class="required">*</span></span>
+                  <input type="text" name="security_pin" placeholder="Enter Security Pin" required />
                 </label>
               </div>
 
               <div class="audio-row">
                 <span>Listen Security Pin Audio</span>
-                <audio controls src="" aria-label="Security pin audio"></audio>
+                <button type="button" class="audio-btn">🔊</button>
               </div>
 
-              <div class="form-actions">
-                <button class="btn secondary" type="button" id="forgot">Forgot Password</button>
-                <button class="btn primary" type="submit">Login</button>
+              <div class="form-row actions-row">
+                <button type="button" class="secondary-btn">Forgot Password</button>
+                <button type="submit" class="primary-btn">Login</button>
               </div>
             </form>
 
-            <div class="help-links">
-              <a href="#">New Candidate Registration</a> · <a href="#">User Manual</a>
+            <div class="register-cta">
+              <a href="registration.html">New Candidate Registration</a>
+              <span>•</span>
+              <a href="#">User Manual</a>
             </div>
           </div>
         </section>
 
-        <aside class="instructions-column">
-          <div class="instructions-card">
+        <aside class="sidebar-panel">
+          <div class="instruction-card">
             <h2>Important Instructions</h2>
             <ul>
-              <li><strong>Password Confidentiality:</strong> Confidentiality of password is solely responsibility of the candidate; take care to protect it.</li>
-              <li><strong>Change Password:</strong> Candidates are advised to keep changing the Password at frequent intervals.</li>
-              <li><strong>Beware of Phishing:</strong> Never share your password and do not respond to any mail which asks for your Login-ID/Password.</li>
-              <li><strong>OTP Security:</strong> Do not share OTP sent to you.</li>
-              <li><strong>Session Security:</strong> After finishing your work, logout and close the browser.</li>
+              <li>
+                <strong>Password Confidentiality:</strong> Confidentiality of Password is solely responsibility
+                of the candidate and all care must be taken to protect the password.
+              </li>
+              <li>
+                <strong>Change Password:</strong> Candidates are advised to keep changing the password at
+                frequent intervals.
+              </li>
+              <li>
+                <strong>Beware of Phishing:</strong> Never share your password and do not respond to any mail
+                which asks for your login ID/password.
+              </li>
+              <li>
+                <strong>OTP Security:</strong> It is strongly recommended that the OTP sent to the candidate for
+                any activity like reset password etc. must not be shared with anyone.
+              </li>
+              <li>
+                <strong>Session Security:</strong> For security reasons, after finishing your work, log out and
+                close the browser session.
+              </li>
             </ul>
           </div>
         </aside>
       </div>
     </main>
 
-    <footer class="site-footer">
-      <div class="container">
-        <small>© Medical Counselling Committee — This is a mockup for demonstration only.</small>
-      </div>
-    </footer>
-
     <script src="script.js"></script>
   </body>
 </html>
+

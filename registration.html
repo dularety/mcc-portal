@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MCC Portal | New Registration</title>
+    <meta
+      name="description"
+      content="New registration form for the Medical Counselling Committee portal"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="gov-header">
+      <div class="gov-left">
+        <div class="logo-mark" aria-hidden="true">MCC</div>
+        <div class="gov-title">
+          <p class="gov-kicker">Medical Counselling Committee (MCC), DGHS</p>
+          <p class="gov-subtitle">Ministry of Health &amp; Family Welfare, Government of India</p>
+          <p class="gov-cycle">NEET UG Counselling for MBBS, BDS &amp; B.Sc. Nursing 2026</p>
+        </div>
+      </div>
+      <div class="gov-right">
+        <div class="e-counselling">
+          <div class="e-badge">e</div>
+          <div class="e-text">Counselling Services</div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="main-nav">
+      <div class="main-nav__inner">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="registration.html" class="nav-link active">Registration</a>
+      </div>
+    </nav>
+
+    <main class="registration-page">
+      <div class="registration-shell">
+        <div class="page-heading">
+          <h1>New Registration</h1>
+          <p>Complete the application details below to register for counselling.</p>
+        </div>
+
+        <form
+          name="mcc-registration"
+          method="POST"
+          action="/thank-you.html"
+          class="registration-form"
+          data-netlify="true"
+          netlify
+        >
+          <input type="hidden" name="form-name" value="mcc-registration" />
+
+          <div class="form-grid">
+            <label>
+              <span>NEET Roll Number</span>
+              <input type="text" name="neet_roll_number" placeholder="Enter NEET roll number" required />
+            </label>
+
+            <label>
+              <span>Application Number</span>
+              <input type="text" name="application_number" placeholder="Enter application number" required />
+            </label>
+
+            <label>
+              <span>Full Name</span>
+              <input type="text" name="full_name" placeholder="Enter full name" required />
+            </label>
+
+            <label>
+              <span>Date of Birth</span>
+              <input type="date" name="date_of_birth" required />
+            </label>
+
+            <label>
+              <span>Category</span>
+              <select name="category" required>
+                <option value="">Select category</option>
+                <option>General</option>
+                <option>OBC-NCL</option>
+                <option>SC</option>
+                <option>ST</option>
+                <option>EWS</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Gender</span>
+              <select name="gender" required>
+                <option value="">Select gender</option>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Mobile Number</span>
+              <input type="tel" name="mobile_number" placeholder="Enter mobile number" required />
+            </label>
+
+            <label>
+              <span>Email ID</span>
+              <input type="email" name="email" placeholder="Enter email address" required />
+            </label>
+
+            <label class="full-width">
+              <span>Permanent Address</span>
+              <textarea name="address" rows="4" placeholder="Enter permanent address" required></textarea>
+            </label>
+
+            <label>
+              <span>Course Preference</span>
+              <select name="course_preference" required>
+                <option value="">Select preference</option>
+                <option>MBBS</option>
+                <option>BDS</option>
+                <option>B.Sc. Nursing</option>
+              </select>
+            </label>
+
+            <label>
+              <span>State of Domicile</span>
+              <input type="text" name="state_of_domicile" placeholder="Enter state" required />
+            </label>
+
+            <label>
+              <span>Upload Photo</span>
+              <input type="file" name="photo" accept="image/*" />
+            </label>
+
+            <label>
+              <span>Upload Signature</span>
+              <input type="file" name="signature" accept="image/*" />
+            </label>
+
+            <label class="full-width checkbox-wrap">
+              <input type="checkbox" name="confirm" required />
+              <span>I confirm all the details entered are correct and I agree to the instructions.</span>
+            </label>
+          </div>
+
+          <div class="form-actions registration-actions">
+            <a href="index.html" class="secondary-btn ghost-link">Back to Login</a>
+            <button type="submit" class="primary-btn">Submit Registration</button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
+
