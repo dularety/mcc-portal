@@ -1,76 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Step 4 — Payment</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <header class="gov-header">
-    <div class="gov-left">
-      <div class="logo-mark">MCC</div>
-      <div class="gov-title"><div class="org">Medical Counselling Committee (MCC), DGHS</div></div>
-    </div>
-  </header>
-
-  <nav class="main-nav">
-    <div class="main-nav__inner">
-      <a class="nav-link" href="index.html">Home</a>
-      <a class="nav-link active" href="step4.html">New Registration</a>
-    </div>
-  </nav>
-
-  <main class="registration-page">
-    <div class="registration-shell">
-      <div class="page-heading">
-        <h1>Step 4 — Payment</h1>
-        <p>Pay the registration fee of Rs 1000. Use the QR code below (demo).</p>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MCC Portal — Payment</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="gov-header">
+      <div class="gov-left">
+        <div class="logo-mark" aria-hidden="true">MCC</div>
+        <div class="gov-title">
+          <div class="org">Medical Counselling Committee (MCC), DGHS</div>
+          <div class="subtitle">Ministry of Health &amp; Family Welfare, Government of India</div>
+          <div class="cycle">NEET UG Counselling for MBBS, BDS &amp; B.Sc. Nursing 2026</div>
+        </div>
       </div>
-
-      <div class="steps-indicator">
-        <button class="step-ind">1<br/><small>Roll</small></button>
-        <button class="step-ind">2<br/><small>Details</small></button>
-        <button class="step-ind">3<br/><small>Documents</small></button>
-        <button class="step-ind active">4<br/><small>Payment</small></button>
+      <div class="gov-right">
+        <div class="e-counselling">
+          <div class="e-badge">e</div>
+          <div class="e-text">Counselling Services</div>
+        </div>
       </div>
+    </header>
 
-      <div class="qr-wrap">
-        <img id="paymentQr" alt="Payment QR code" src="" />
+    <nav class="main-nav">
+      <div class="main-nav__inner">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="step1.html" class="nav-link active">New Registration</a>
       </div>
+    </nav>
 
-      <div class="registration-actions">
-        <a href="step3.html" class="secondary-btn">Back</a>
-        <button id="confirmPayment" class="primary-btn">I have paid</button>
+    <main class="page-shell">
+      <div class="content-grid">
+        <section class="primary-panel">
+          <div class="login-card">
+            <div class="login-header">
+              <h1>Step 4 — Payment</h1>
+              <button type="button" class="secure-btn">Rs 1000</button>
+            </div>
+
+            <p class="muted" style="margin:0 0 14px; font-size:1.05rem;">Scan the QR code to pay the application fee using UPI or payment app.</p>
+
+            <div class="qr-wrap">
+              <img id="paymentQr" alt="Payment QR code" src="" />
+            </div>
+
+            <div class="registration-actions">
+              <a href="step3.html" class="secondary-btn">Back</a>
+              <button id="confirmPayment" class="primary-btn" type="button">I have paid</button>
+            </div>
+          </div>
+        </section>
+
+        <aside class="sidebar-panel">
+          <div class="instruction-card">
+            <h2>Important Instructions</h2>
+            <ul>
+              <li><strong>Password Confidentiality:</strong> Keep your login password safe and do not share it.</li>
+              <li><strong>Change Password:</strong> Change your password often and keep your details secure.</li>
+              <li><strong>Beware of Phishing:</strong> Never share your password with anyone pretending to be an institution.</li>
+              <li><strong>OTP Security:</strong> Keep your OTP and verification details private.</li>
+              <li><strong>Session Security:</strong> Log out when finished to protect your account.</li>
+            </ul>
+          </div>
+        </aside>
       </div>
-    </div>
-  </main>
+    </main>
 
-  <script>
-    (function(){
-      const roll = JSON.parse(localStorage.getItem('mcc_registration_roll')||'null') || '';
-      const amount = '1000.00';
-      const paymentPayload = 'MCC|PAY|AMOUNT=' + amount + '|ROLL=' + roll + '|DATE=' + new Date().toISOString();
-      const qrUrl = 'https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=' + encodeURIComponent(paymentPayload);
-      document.getElementById('paymentQr').src = qrUrl;
+    <script>
+      (function(){
+        const roll = JSON.parse(localStorage.getItem('mcc_registration_roll') || 'null') || '';
+        const amount = '1000.00';
+        const paymentPayload = 'MCC|PAY|AMOUNT=' + amount + '|ROLL=' + roll + '|DATE=' + new Date().toISOString();
+        const qrUrl = 'https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=' + encodeURIComponent(paymentPayload);
+        document.getElementById('paymentQr').src = qrUrl;
 
-      document.getElementById('confirmPayment').addEventListener('click', function(){
-        const txn = 'TXN' + Math.floor(100000 + Math.random()*900000);
-        localStorage.setItem('mcc_payment_txn', JSON.stringify(txn));
-        localStorage.setItem('mcc_payment_amount', JSON.stringify(amount));
-        localStorage.setItem('mcc_registration_completed_at', JSON.stringify(new Date().toISOString()));
+        document.getElementById('confirmPayment').addEventListener('click', function(){
+          const txn = 'TXN' + Math.floor(100000 + Math.random()*900000);
+          localStorage.setItem('mcc_payment_txn', JSON.stringify(txn));
+          localStorage.setItem('mcc_payment_amount', JSON.stringify(amount));
+          localStorage.setItem('mcc_registration_completed_at', JSON.stringify(new Date().toISOString()));
 
-        const sms = { to: '7979709641', text: 'Payment received. Transaction ID: ' + txn + '. Amount: INR ' + amount, sentAt: new Date().toISOString() };
-        localStorage.setItem('mcc_sms_sent', JSON.stringify(sms));
+          const sms = { to: '7979709641', text: 'Payment received for MCC application. Transaction ID: ' + txn + '. Amount: INR ' + amount, sentAt: new Date().toISOString() };
+          localStorage.setItem('mcc_sms_sent', JSON.stringify(sms));
 
-        const email = { to: 'annipriyarolln@gmail.com', subject: 'MCC Registration Confirmation', body: 'Dear ' + (JSON.parse(localStorage.getItem('mcc_registration_full_name')||'""') ) + ',\n\nWe have received your payment. Transaction ID: ' + txn + '.\n\nRegards, MCC', sentAt: new Date().toISOString() };
-        localStorage.setItem('mcc_email_sent', JSON.stringify(email));
+          const email = {
+            to: 'annipriyarolln@gmail.com',
+            subject: 'MCC Registration Confirmation',
+            body: 'Dear ' + (JSON.parse(localStorage.getItem('mcc_registration_full_name') || '""')) + ',\n\nWe have received your payment. Transaction ID: ' + txn + '.\nAmount: INR 1000.00\n\nRegards, MCC',
+            sentAt: new Date().toISOString()
+          };
+          localStorage.setItem('mcc_email_sent', JSON.stringify(email));
 
-        window.location.href = 'thank-you.html';
-      });
-    })();
-  </script>
-
-  <script src="script.js"></script>
-</body>
+          window.location.href = 'thank-you.html';
+        });
+      })();
+    </script>
+  </body>
 </html>

@@ -3,75 +3,79 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Registration Submitted</title>
+    <title>MCC Portal — Confirmation</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="thankyou-page">
-      <div class="thankyou-box">
-        <div class="icon-circle">✓</div>
-        <h1>Registration Submitted</h1>
-        <p id="summaryText">Loading your submission details…</p>
-        <div id="details" class="confirmation-details"></div>
-        <div class="registration-actions" style="margin-top:20px;justify-content:center;">
-          <a href="index.html" class="primary-btn">Return to Home</a>
+    <header class="gov-header">
+      <div class="gov-left">
+        <div class="logo-mark" aria-hidden="true">MCC</div>
+        <div class="gov-title">
+          <div class="org">Medical Counselling Committee (MCC), DGHS</div>
+          <div class="subtitle">Ministry of Health &amp; Family Welfare, Government of India</div>
+          <div class="cycle">NEET UG Counselling for MBBS, BDS &amp; B.Sc. Nursing 2026</div>
         </div>
+      </div>
+      <div class="gov-right">
+        <div class="e-counselling">
+          <div class="e-badge">e</div>
+          <div class="e-text">Counselling Services</div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="main-nav">
+      <div class="main-nav__inner">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="step1.html" class="nav-link active">New Registration</a>
+      </div>
+    </nav>
+
+    <main class="page-shell">
+      <div class="thankyou-box" id="confirmationBox">
+        <h1>Registration Submitted</h1>
+        <p id="summaryText">Your registration request has been received successfully.</p>
+        <div id="details"></div>
       </div>
     </main>
 
     <script>
       (function(){
-        function get(k){ const v = localStorage.getItem(k); return v ? JSON.parse(v) : null; }
+        function get(key){
+          const v = localStorage.getItem(key);
+          return v ? JSON.parse(v) : null;
+        }
+
         const roll = get('mcc_registration_roll');
-        if(!roll){ document.getElementById('summaryText').textContent = 'No recent submission found.'; return; }
         const full = get('mcc_registration_full_name');
         const marks = get('mcc_registration_neet_marks');
         const rank = get('mcc_registration_neet_rank');
         const app = get('mcc_registration_application');
         const email = get('mcc_registration_email');
         const mobile = get('mcc_registration_mobile');
-        const addr = get('mcc_registration_address');
-        const docScore = get('mcc_doc_score');
-        const docBirth = get('mcc_doc_birth');
-        const docAdmit = get('mcc_doc_admit');
+        const address = get('mcc_registration_address');
         const txn = get('mcc_payment_txn');
         const amount = get('mcc_payment_amount');
-        const completed = get('mcc_registration_completed_at');
         const sms = get('mcc_sms_sent');
         const emailSent = get('mcc_email_sent');
+        const completed = get('mcc_registration_completed_at');
 
-        document.getElementById('summaryText').textContent = 'All details, documents and payment have been received. Your transaction ID is ' + (txn || 'N/A');
+        document.getElementById('summaryText').textContent = 'Your registration and payment are confirmed. Transaction ID: ' + (txn || 'N/A');
 
-        const detailsDiv = document.getElementById('details');
-        const created = completed ? new Date(completed).toLocaleString() : 'N/A';
-        detailsDiv.innerHTML = `
-          <section class="card-block">
-            <h3>Applicant</h3>
-            <p><strong>${full || '—'}</strong><br/>Roll: ${roll}<br/>Application No: ${app || '—'}</p>
-          </section>
-          <section class="card-block">
-            <h3>Exam Details</h3>
-            <p>Marks: ${marks || '—'} • Rank: ${rank || '—'}</p>
-          </section>
-          <section class="card-block">
-            <h3>Documents</h3>
-            <ul>
-              <li>Score Card: ${docScore ? docScore.name : 'Not uploaded'}</li>
-              <li>Birth Certificate: ${docBirth ? docBirth.name : 'Not uploaded'}</li>
-              <li>Admit Card: ${docAdmit ? docAdmit.name : 'Not uploaded'}</li>
-            </ul>
-          </section>
-          <section class="card-block">
-            <h3>Payment</h3>
-            <p>Amount: ₹${amount || '0.00'} — Transaction ID: <strong>${txn || 'N/A'}</strong></p>
-          </section>
-          <section class="card-block">
-            <h3>Notifications</h3>
-            <p>SMS: ${sms ? 'Sent to ' + sms.to + ' at ' + new Date(sms.sentAt).toLocaleString() : 'Not sent'}</p>
-            <p>Email: ${emailSent ? 'Sent to ' + emailSent.to + ' at ' + new Date(emailSent.sentAt).toLocaleString() : 'Not sent'}</p>
-            ${emailSent ? '<details><summary>View email</summary><pre>' + (emailSent.body || '') + '</pre></details>' : ''}
-          </section>
-          <p class="muted">Submitted at: ${created}</p>
+        const detailsEl = document.getElementById('details');
+        detailsEl.innerHTML = `
+          <dl>
+            <dt>Application No</dt><dd>${app || '—'}</dd>
+            <dt>NEET Roll</dt><dd>${roll || '—'}</dd>
+            <dt>Name</dt><dd>${full || '—'}</dd>
+            <dt>Marks / Rank</dt><dd>${marks || '—'} / ${rank || '—'}</dd>
+            <dt>Email / Mobile</dt><dd>${email || '—'} / ${mobile || '—'}</dd>
+            <dt>Address</dt><dd>${address || '—'}</dd>
+            <dt>Payment</dt><dd>Amount: ₹${amount || '0.00'} — Transaction ID: ${txn || 'N/A'}</dd>
+            <dt>SMS</dt><dd>${sms ? '<code>' + sms.text + '</code>' : 'No SMS sent'}</dd>
+            <dt>Email</dt><dd>${emailSent ? '<strong>' + emailSent.subject + '</strong><br/><pre>' + emailSent.body + '</pre>' : 'No email sent'}</dd>
+            <dt>Submitted At</dt><dd>${completed ? new Date(completed).toLocaleString() : 'Pending'}</dd>
+          </dl>
         `;
       })();
     </script>

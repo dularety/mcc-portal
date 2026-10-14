@@ -1,153 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Step 2 — Details</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <header class="gov-header">
-    <div class="gov-left">
-      <div class="logo-mark">MCC</div>
-      <div class="gov-title"><div class="org">Medical Counselling Committee (MCC), DGHS</div></div>
-    </div>
-  </header>
-
-  <nav class="main-nav">
-    <div class="main-nav__inner">
-      <a class="nav-link" href="index.html">Home</a>
-      <a class="nav-link active" href="step2.html">New Registration</a>
-    </div>
-  </nav>
-
-  <main class="registration-page">
-    <div class="registration-shell">
-      <div class="page-heading">
-        <h1>Step 2 — Candidate Details</h1>
-        <p>We will auto-fill details for known roll numbers.</p>
-      </div>
-
-      <div class="steps-indicator">
-        <button class="step-ind">1<br/><small>Roll</small></button>
-        <button class="step-ind active">2<br/><small>Details</small></button>
-        <button class="step-ind">3<br/><small>Documents</small></button>
-        <button class="step-ind">4<br/><small>Payment</small></button>
-      </div>
-
-      <form id="step2Form" class="registration-form">
-        <div class="form-grid">
-          <label>
-            <span>Full Name</span>
-            <input id="full_name" name="full_name" type="text" placeholder="Full name" required />
-          </label>
-
-          <label>
-            <span>NEET Marks</span>
-            <input id="neet_marks" name="neet_marks" type="text" placeholder="Marks" required />
-          </label>
-
-          <label>
-            <span>NEET Rank</span>
-            <input id="neet_rank" name="neet_rank" type="text" placeholder="Rank" required />
-          </label>
-
-          <label>
-            <span>Date of Birth</span>
-            <input id="date_of_birth" name="date_of_birth" type="date" required />
-          </label>
-
-          <label>
-            <span>Category</span>
-            <select id="category" name="category" required>
-              <option value="">Select category</option>
-              <option>General</option>
-              <option>OBC-NCL</option>
-              <option>SC</option>
-              <option>ST</option>
-              <option>EWS</option>
-            </select>
-          </label>
-
-          <label>
-            <span>Gender</span>
-            <select id="gender" name="gender" required>
-              <option value="">Select gender</option>
-              <option>Male</option>
-              <option>Female</option>
-              <option>Other</option>
-            </select>
-          </label>
-
-          <label>
-            <span>Mobile Number</span>
-            <input id="mobile_number" name="mobile_number" type="tel" placeholder="Enter mobile number" required />
-          </label>
-
-          <label>
-            <span>Email ID</span>
-            <input id="email" name="email" type="email" placeholder="Enter email address" required />
-          </label>
-
-          <label class="full-width">
-            <span>Permanent Address</span>
-            <textarea id="address" name="address" rows="4" placeholder="Enter permanent address" required></textarea>
-          </label>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MCC Portal — Candidate Details</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="gov-header">
+      <div class="gov-left">
+        <div class="logo-mark" aria-hidden="true">MCC</div>
+        <div class="gov-title">
+          <div class="org">Medical Counselling Committee (MCC), DGHS</div>
+          <div class="subtitle">Ministry of Health &amp; Family Welfare, Government of India</div>
+          <div class="cycle">NEET UG Counselling for MBBS, BDS &amp; B.Sc. Nursing 2026</div>
         </div>
-
-        <div class="registration-actions">
-          <a href="step1.html" class="secondary-btn">Back</a>
-          <button type="submit" class="primary-btn">Next</button>
+      </div>
+      <div class="gov-right">
+        <div class="e-counselling">
+          <div class="e-badge">e</div>
+          <div class="e-text">Counselling Services</div>
         </div>
-      </form>
-    </div>
-  </main>
+      </div>
+    </header>
 
-  <script>
-    const rollLookup = { '2603209373': { full_name: 'ANNI PRIYA', neet_marks: '596', neet_rank: '11057' } };
+    <nav class="main-nav">
+      <div class="main-nav__inner">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="step1.html" class="nav-link active">New Registration</a>
+      </div>
+    </nav>
 
-    (function preload(){
-      const roll = JSON.parse(localStorage.getItem('mcc_registration_roll') || 'null');
-      if(roll && rollLookup[roll]){
-        const info = rollLookup[roll];
-        document.getElementById('full_name').value = info.full_name;
-        document.getElementById('neet_marks').value = info.neet_marks;
-        document.getElementById('neet_rank').value = info.neet_rank;
-        localStorage.setItem('mcc_registration_full_name', JSON.stringify(info.full_name));
-        localStorage.setItem('mcc_registration_neet_marks', JSON.stringify(info.neet_marks));
-        localStorage.setItem('mcc_registration_neet_rank', JSON.stringify(info.neet_rank));
-      }
+    <main class="page-shell">
+      <div class="content-grid">
+        <section class="primary-panel">
+          <div class="login-card">
+            <div class="login-header">
+              <h1>Step 2 — Candidate Details</h1>
+              <button type="button" class="secure-btn">AUTO-FILL</button>
+            </div>
 
-      const saved = (key)=>{ const v = localStorage.getItem(key); return v?JSON.parse(v):'' };
-      document.getElementById('date_of_birth').value = saved('mcc_registration_dob');
-      document.getElementById('category').value = saved('mcc_registration_category');
-      document.getElementById('gender').value = saved('mcc_registration_gender');
-      document.getElementById('mobile_number').value = saved('mcc_registration_mobile');
-      document.getElementById('email').value = saved('mcc_registration_email');
-      document.getElementById('address').value = saved('mcc_registration_address');
-      const full = saved('mcc_registration_full_name'); if(full) document.getElementById('full_name').value = full;
-      const marks = saved('mcc_registration_neet_marks'); if(marks) document.getElementById('neet_marks').value = marks;
-      const rank = saved('mcc_registration_neet_rank'); if(rank) document.getElementById('neet_rank').value = rank;
-    })();
+            <form id="step2Form" class="registration-form">
+              <div class="form-grid">
+                <label>
+                  <span>Full Name</span>
+                  <input id="full_name" type="text" required />
+                </label>
 
-    document.getElementById('step2Form').addEventListener('submit', function(e){
-      e.preventDefault();
-      const full = document.getElementById('full_name').value.trim();
-      if(!full){ alert('Enter full name'); return; }
-      localStorage.setItem('mcc_registration_full_name', JSON.stringify(full));
-      localStorage.setItem('mcc_registration_neet_marks', JSON.stringify(document.getElementById('neet_marks').value.trim()));
-      localStorage.setItem('mcc_registration_neet_rank', JSON.stringify(document.getElementById('neet_rank').value.trim()));
-      localStorage.setItem('mcc_registration_dob', JSON.stringify(document.getElementById('date_of_birth').value));
-      localStorage.setItem('mcc_registration_category', JSON.stringify(document.getElementById('category').value));
-      localStorage.setItem('mcc_registration_gender', JSON.stringify(document.getElementById('gender').value));
-      localStorage.setItem('mcc_registration_mobile', JSON.stringify(document.getElementById('mobile_number').value.trim()));
-      localStorage.setItem('mcc_registration_email', JSON.stringify(document.getElementById('email').value.trim()));
-      localStorage.setItem('mcc_registration_address', JSON.stringify(document.getElementById('address').value.trim()));
+                <label>
+                  <span>NEET Marks</span>
+                  <input id="neet_marks" type="text" required />
+                </label>
 
-      window.location.href = 'step3.html';
-    });
-  </script>
+                <label>
+                  <span>NEET Rank</span>
+                  <input id="neet_rank" type="text" required />
+                </label>
 
-  <script src="script.js"></script>
-</body>
+                <label>
+                  <span>Date of Birth</span>
+                  <input id="date_of_birth" type="date" required />
+                </label>
+
+                <label>
+                  <span>Category</span>
+                  <select id="category" required>
+                    <option value="">Select category</option>
+                    <option>General</option>
+                    <option>OBC-NCL</option>
+                    <option>SC</option>
+                    <option>ST</option>
+                    <option>EWS</option>
+                  </select>
+                </label>
+
+                <label>
+                  <span>Gender</span>
+                  <select id="gender" required>
+                    <option value="">Select gender</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+                  </select>
+                </label>
+
+                <label>
+                  <span>Mobile Number</span>
+                  <input id="mobile_number" type="tel" required />
+                </label>
+
+                <label>
+                  <span>Email ID</span>
+                  <input id="email" type="email" required />
+                </label>
+
+                <label class="full-width">
+                  <span>Permanent Address</span>
+                  <textarea id="address" rows="4" required></textarea>
+                </label>
+              </div>
+
+              <div class="registration-actions">
+                <a href="step1.html" class="secondary-btn">Back</a>
+                <button type="submit" class="primary-btn">Next</button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <aside class="sidebar-panel">
+          <div class="instruction-card">
+            <h2>Important Instructions</h2>
+            <ul>
+              <li><strong>Password Confidentiality:</strong> Keep your login password safe and do not share it.</li>
+              <li><strong>Change Password:</strong> Change your password often and keep your details secure.</li>
+              <li><strong>Beware of Phishing:</strong> Never share your password with anyone pretending to be an institution.</li>
+              <li><strong>OTP Security:</strong> Keep your OTP and verification details private.</li>
+              <li><strong>Session Security:</strong> Log out when finished to protect your account.</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <script>
+      const rollLookup = { '2603209373': { full_name: 'ANNI PRIYA', neet_marks: '596', neet_rank: '11057' } };
+      (function(){
+        const roll = JSON.parse(localStorage.getItem('mcc_registration_roll') || 'null');
+        if(roll && rollLookup[roll]) {
+          const info = rollLookup[roll];
+          document.getElementById('full_name').value = info.full_name;
+          document.getElementById('neet_marks').value = info.neet_marks;
+          document.getElementById('neet_rank').value = info.neet_rank;
+          localStorage.setItem('mcc_registration_full_name', JSON.stringify(info.full_name));
+          localStorage.setItem('mcc_registration_neet_marks', JSON.stringify(info.neet_marks));
+          localStorage.setItem('mcc_registration_neet_rank', JSON.stringify(info.neet_rank));
+        }
+        const saved = (key) => { const v = localStorage.getItem(key); return v ? JSON.parse(v) : ''; };
+        const full = saved('mcc_registration_full_name'); if(full) document.getElementById('full_name').value = full;
+        const marks = saved('mcc_registration_neet_marks'); if(marks) document.getElementById('neet_marks').value = marks;
+        const rank = saved('mcc_registration_neet_rank'); if(rank) document.getElementById('neet_rank').value = rank;
+        const dob = saved('mcc_registration_dob'); if(dob) document.getElementById('date_of_birth').value = dob;
+        const cat = saved('mcc_registration_category'); if(cat) document.getElementById('category').value = cat;
+        const gen = saved('mcc_registration_gender'); if(gen) document.getElementById('gender').value = gen;
+        const mob = saved('mcc_registration_mobile'); if(mob) document.getElementById('mobile_number').value = mob;
+        const email = saved('mcc_registration_email'); if(email) document.getElementById('email').value = email;
+        const addr = saved('mcc_registration_address'); if(addr) document.getElementById('address').value = addr;
+      })();
+
+      document.getElementById('step2Form').addEventListener('submit', function(e){
+        e.preventDefault();
+        localStorage.setItem('mcc_registration_full_name', JSON.stringify(document.getElementById('full_name').value.trim()));
+        localStorage.setItem('mcc_registration_neet_marks', JSON.stringify(document.getElementById('neet_marks').value.trim()));
+        localStorage.setItem('mcc_registration_neet_rank', JSON.stringify(document.getElementById('neet_rank').value.trim()));
+        localStorage.setItem('mcc_registration_dob', JSON.stringify(document.getElementById('date_of_birth').value));
+        localStorage.setItem('mcc_registration_category', JSON.stringify(document.getElementById('category').value));
+        localStorage.setItem('mcc_registration_gender', JSON.stringify(document.getElementById('gender').value));
+        localStorage.setItem('mcc_registration_mobile', JSON.stringify(document.getElementById('mobile_number').value.trim()));
+        localStorage.setItem('mcc_registration_email', JSON.stringify(document.getElementById('email').value.trim()));
+        localStorage.setItem('mcc_registration_address', JSON.stringify(document.getElementById('address').value.trim()));
+        window.location.href = 'step3.html';
+      });
+    </script>
+  </body>
 </html>

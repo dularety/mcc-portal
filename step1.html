@@ -1,80 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Step 1 — Enter NEET Roll</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <header class="gov-header">
-    <div class="gov-left">
-      <div class="logo-mark">MCC</div>
-      <div class="gov-title">
-        <div class="org">Medical Counselling Committee (MCC), DGHS</div>
-      </div>
-    </div>
-  </header>
-
-  <nav class="main-nav">
-    <div class="main-nav__inner">
-      <a class="nav-link" href="index.html">Home</a>
-      <a class="nav-link active" href="step1.html">New Registration</a>
-    </div>
-  </nav>
-
-  <main class="registration-page">
-    <div class="registration-shell">
-      <div class="page-heading">
-        <h1>Step 1 — Enter NEET Roll</h1>
-        <p>Enter your NEET roll number to begin registration.</p>
-      </div>
-
-      <div class="steps-indicator">
-        <button class="step-ind active">1<br/><small>Roll</small></button>
-        <button class="step-ind">2<br/><small>Details</small></button>
-        <button class="step-ind">3<br/><small>Documents</small></button>
-        <button class="step-ind">4<br/><small>Payment</small></button>
-      </div>
-
-      <form id="step1Form" class="registration-form">
-        <label>
-          <span>NEET Roll Number</span>
-          <input id="neet_roll_number" name="neet_roll_number" type="text" placeholder="Enter NEET roll number" required />
-        </label>
-
-        <label>
-          <span>Application Number (optional)</span>
-          <input id="application_number" name="application_number" type="text" placeholder="Enter application number" />
-        </label>
-
-        <div class="registration-actions">
-          <a href="index.html" class="secondary-btn">Cancel</a>
-          <button type="submit" class="primary-btn">Next</button>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MCC Portal — New Registration</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="gov-header">
+      <div class="gov-left">
+        <div class="logo-mark" aria-hidden="true">MCC</div>
+        <div class="gov-title">
+          <div class="org">Medical Counselling Committee (MCC), DGHS</div>
+          <div class="subtitle">Ministry of Health &amp; Family Welfare, Government of India</div>
+          <div class="cycle">NEET UG Counselling for MBBS, BDS &amp; B.Sc. Nursing 2026</div>
         </div>
-      </form>
-    </div>
-  </main>
+      </div>
+      <div class="gov-right">
+        <div class="e-counselling">
+          <div class="e-badge">e</div>
+          <div class="e-text">Counselling Services</div>
+        </div>
+      </div>
+    </header>
 
-  <script>
-    document.getElementById('step1Form').addEventListener('submit', function(e){
-      e.preventDefault();
-      const roll = document.getElementById('neet_roll_number').value.trim();
-      const app = document.getElementById('application_number').value.trim();
-      if(!roll){ alert('Please enter your NEET roll number.'); return; }
-      localStorage.setItem('mcc_registration_roll', JSON.stringify(roll));
-      localStorage.setItem('mcc_registration_application', JSON.stringify(app));
-      window.location.href = 'step2.html';
-    });
+    <nav class="main-nav">
+      <div class="main-nav__inner">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="step1.html" class="nav-link active">New Registration</a>
+      </div>
+    </nav>
 
-    (function preload(){
-      const existing = localStorage.getItem('mcc_registration_roll');
-      if(existing){ document.getElementById('neet_roll_number').value = JSON.parse(existing); }
-      const app = localStorage.getItem('mcc_registration_application');
-      if(app) document.getElementById('application_number').value = JSON.parse(app);
-    })();
-  </script>
+    <main class="page-shell">
+      <div class="content-grid">
+        <section class="primary-panel">
+          <div class="login-card">
+            <div class="login-header">
+              <h1>Registration</h1>
+              <button type="button" class="secure-btn">SECURE LOGIN</button>
+            </div>
 
-  <script src="script.js"></script>
-</body>
+            <form id="step1Form" class="registration-form">
+              <div class="field">
+                <label>
+                  <span class="field-label">NEET Roll Number <span class="required">*</span></span>
+                  <input id="neet_roll_number" name="neet_roll_number" type="text" placeholder="Enter NEET roll number" required />
+                </label>
+              </div>
+
+              <div class="field">
+                <label>
+                  <span class="field-label">Application Number</span>
+                  <input id="application_number" name="application_number" type="text" placeholder="Enter application number" />
+                </label>
+              </div>
+
+              <div class="registration-actions">
+                <a href="index.html" class="secondary-btn">Cancel</a>
+                <button type="submit" class="primary-btn">Next</button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <aside class="sidebar-panel">
+          <div class="instruction-card">
+            <h2>Important Instructions</h2>
+            <ul>
+              <li><strong>Password Confidentiality:</strong> Keep your login password safe and do not share it.</li>
+              <li><strong>Change Password:</strong> Change your password often and keep your details secure.</li>
+              <li><strong>Beware of Phishing:</strong> Never share your password with anyone pretending to be an institution.</li>
+              <li><strong>OTP Security:</strong> Keep your OTP and verification details private.</li>
+              <li><strong>Session Security:</strong> Log out when finished to protect your account.</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <script>
+      document.getElementById('step1Form').addEventListener('submit', function(e){
+        e.preventDefault();
+        const roll = document.getElementById('neet_roll_number').value.trim();
+        const app = document.getElementById('application_number').value.trim();
+        if(!roll){ alert('Please enter your NEET roll number.'); return; }
+        localStorage.setItem('mcc_registration_roll', JSON.stringify(roll));
+        localStorage.setItem('mcc_registration_application', JSON.stringify(app));
+        window.location.href = 'step2.html';
+      });
+      (function(){
+        const existing = localStorage.getItem('mcc_registration_roll');
+        if(existing){ document.getElementById('neet_roll_number').value = JSON.parse(existing); }
+        const app = localStorage.getItem('mcc_registration_application');
+        if(app){ document.getElementById('application_number').value = JSON.parse(app); }
+      })();
+    </script>
+  </body>
 </html>
