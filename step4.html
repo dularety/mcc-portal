@@ -162,10 +162,12 @@
         const roll = JSON.parse(localStorage.getItem('mcc_registration_roll') || 'null') || '';
         const amount = '1000.00';
         const upiId = 'seemapandeyqwerty@okicici';
-        const name = 'Seema%20Pandey';
+        const name = 'Seema Pandey';
         const note = encodeURIComponent('MCC Registration ' + roll);
-        const upiLink = 'upi://pay?pa=' + upiId + '&pn=' + name + '&am=' + amount + '&cu=INR&tn=' + note;
-        const qrUrl = 'https://chart.googleapis.com/chart?cht=qr&chs=600x600&chl=' + encodeURIComponent(upiLink);
+        const upiLink = 'upi://pay?pa=' + upiId + '&pn=' + encodeURIComponent(name) + '&am=' + amount + '&cu=INR&tn=' + note;
+
+        // Use a QR generator that reliably returns an image in browsers
+        const qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=600x600&data=' + encodeURIComponent(upiLink);
         document.getElementById('paymentQr').src = qrUrl;
 
         document.getElementById('confirmPayment').addEventListener('click', function(){
