@@ -1,276 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MCC Portal</title>
-    <meta
-      name="description"
-      content="Medical Counselling Committee registration portal mockup"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>MCC Portal — Registered Candidate Sign-In</title>
+    <meta name="description" content="Medical Counselling Committee (MCC) portal mockup" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <div class="app-shell">
-      <aside class="sidebar">
-        <div class="brand-wrap">
-          <div class="brand-mark">MCC</div>
-          <div>
-            <h1>MCC</h1>
-            <p>Portal</p>
-          </div>
+    <header class="gov-header">
+      <div class="gov-left">
+        <div class="logo-mark" aria-hidden="true">MCC</div>
+        <div class="gov-title">
+          <div class="org">Medical Counselling Committee (MCC), DGHS</div>
+          <div class="subtitle">Ministry of Health &amp; Family Welfare, Government of India</div>
+          <div class="cycle">NEET UG Counselling for MBBS, BDS &amp; B.Sc. Nursing 2026</div>
         </div>
-
-        <nav class="side-nav" aria-label="Main navigation">
-          <button class="nav-item active" type="button">
-            <span>🏠</span>
-            Dashboard
-          </button>
-          <button class="nav-item" type="button">
-            <span>🧾</span>
-            Registration
-          </button>
-          <button class="nav-item" type="button">
-            <span>📄</span>
-            Application
-          </button>
-          <button class="nav-item" type="button">
-            <span>💳</span>
-            Fee Payment
-          </button>
-          <button class="nav-item" type="button">
-            <span>🎯</span>
-            Choice Filling
-          </button>
-          <button class="nav-item" type="button">
-            <span>📣</span>
-            Notices
-          </button>
-        </nav>
-
-        <div class="support-card">
-          <p class="eyebrow">Quick Help</p>
-          <h3>Need support?</h3>
-          <p>Call 1800-XXX-XXXX or email support@mcc.gov.in</p>
+      </div>
+      <div class="gov-right">
+        <div class="ecounsel">
+          <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='72' height='42'><rect rx='6' width='72' height='42' fill='%23e33'/><text x='50%' y='55%' font-size='18' fill='white' text-anchor='middle' font-family='Arial'>e</text></svg>" alt="e-Counselling logo" />
+          <div class="ecoun-text">e-Counselling Services</div>
         </div>
-      </aside>
+      </div>
+    </header>
 
-      <main class="main-panel">
-        <header class="topbar">
-          <div>
-            <p class="eyebrow">Medical Counselling Committee</p>
-            <h2>Registration & Counselling Portal</h2>
-          </div>
-          <div class="topbar-actions">
-            <button class="ghost-btn" type="button">Language</button>
-            <button class="primary-btn" type="button">Logout</button>
-          </div>
-        </header>
+    <nav class="main-nav">
+      <div class="nav-inner">
+        <a class="nav-item active" href="#">Home</a>
+        <a class="nav-item" href="#">Help</a>
+        <a class="nav-item" href="#">Contact</a>
+      </div>
+    </nav>
 
-        <section class="hero-grid">
-          <div class="hero-card">
-            <div class="hero-copy">
-              <p class="eyebrow motif">Current cycle</p>
-              <h3>NEET UG Counselling 2026</h3>
-              <p>
-                Complete registration, document verification, and choice filling
-                through the official online counselling process.
-              </p>
-            </div>
-            <div class="hero-actions">
-              <button class="primary-btn" type="button">Continue Registration</button>
-              <button class="secondary-btn" type="button">Download Guide</button>
-            </div>
-          </div>
-
-          <div class="mini-stats">
-            <div class="stat-box">
-              <span class="stat-label">Applications</span>
-              <strong>1,24,356</strong>
-            </div>
-            <div class="stat-box">
-              <span class="stat-label">Seats Available</span>
-              <strong>48,742</strong>
-            </div>
-            <div class="stat-box">
-              <span class="stat-label">Last Update</span>
-              <strong>Today, 10:30 AM</strong>
-            </div>
-          </div>
-        </section>
-
-        <section class="content-grid">
-          <div class="panel form-panel">
-            <div class="section-header">
-              <h3>Candidate Registration</h3>
-              <span class="badge success">In Progress</span>
+    <main class="page">
+      <div class="container">
+        <section class="signin-column">
+          <div class="signin-card">
+            <div class="signin-header">
+              <h1>Registered Candidates Sign-In</h1>
+              <button class="secure">SECURE LOGIN</button>
             </div>
 
-            <div class="stepper" aria-label="Registration progress">
-              <span class="step active">1</span>
-              <span class="step active">2</span>
-              <span class="step">3</span>
-              <span class="step">4</span>
-            </div>
+            <form id="loginForm" class="login-form" autocomplete="off">
+              <label class="field">
+                <span class="label-text">Counselling <span class="required">*</span></span>
+                <select name="counselling">
+                  <option>NEET UG Counselling for MBBS, BDS &amp; B.Sc. Nursing 2026</option>
+                </select>
+              </label>
 
-            <form class="registration-form" id="registrationForm">
-              <div class="field-row two-col">
-                <label>
-                  NEET Roll No.
-                  <input type="text" value="1234567890" />
-                </label>
-                <label>
-                  Application No.
-                  <input type="text" value="MCC2026-45821" />
+              <label class="field">
+                <span class="label-text">NEET UG Roll Number <span class="required">*</span></span>
+                <input name="roll" type="text" placeholder="Enter NEET UG Roll Number" required>
+              </label>
+
+              <label class="field">
+                <span class="label-text">Password <span class="required">*</span></span>
+                <input name="password" type="password" placeholder="Enter Password" required>
+              </label>
+
+              <div class="security-row">
+                <div class="captcha">
+                  <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='48'><rect width='100%' height='100%' fill='%23f0f4f8'/><text x='50%' y='60%' font-family='Inter, Arial' font-size='26' text-anchor='middle' fill='%23045aa6'>054365</text></svg>" alt="security pin" />
+                  <button type="button" id="refreshCaptcha" aria-label="Refresh captcha">⟳</button>
+                </div>
+
+                <label class="field small">
+                  <span class="label-text">Security Pin <span class="required">*</span></span>
+                  <input name="pin" type="text" placeholder="Enter Security Pin" required>
                 </label>
               </div>
 
-              <div class="field-row two-col">
-                <label>
-                  Full Name
-                  <input type="text" value="Ananya Sharma" />
-                </label>
-                <label>
-                  Date of Birth
-                  <input type="date" value="2004-07-13" />
-                </label>
-              </div>
-
-              <div class="field-row two-col">
-                <label>
-                  Category
-                  <select>
-                    <option>General</option>
-                    <option>OBC-NCL</option>
-                    <option>SC</option>
-                    <option>ST</option>
-                    <option>EWS</option>
-                  </select>
-                </label>
-                <label>
-                  Gender
-                  <select>
-                    <option>Female</option>
-                    <option>Male</option>
-                    <option>Other</option>
-                  </select>
-                </label>
-              </div>
-
-              <div class="field-row two-col">
-                <label>
-                  Mobile Number
-                  <input type="tel" value="+91 9876543210" />
-                </label>
-                <label>
-                  Email ID
-                  <input type="email" value="ananya.sharma@email.com" />
-                </label>
-              </div>
-
-              <div class="field-row one-col">
-                <label>
-                  Permanent Address
-                  <textarea rows="3">B-14, Green Park, New Delhi - 110016</textarea>
-                </label>
+              <div class="audio-row">
+                <span>Listen Security Pin Audio</span>
+                <audio controls src="" aria-label="Security pin audio"></audio>
               </div>
 
               <div class="form-actions">
-                <button class="secondary-btn" type="button">Save Draft</button>
-                <button class="primary-btn" type="submit">Submit & Continue</button>
+                <button class="btn secondary" type="button" id="forgot">Forgot Password</button>
+                <button class="btn primary" type="submit">Login</button>
               </div>
             </form>
-          </div>
 
-          <div class="panel status-panel">
-            <div class="section-header">
-              <h33>Application Status</h3>
-              <span class="badge warning">Documents Pending</span>
-            </div>
-
-            <div class="status-card success">
-              <div class="status-topline">
-                <span>Registration</span>
-                <strong>Completed</strong>
-              </div>
-              <div class="progress-track"><span style="width:100%"></span></div>
-            </div>
-
-            <div class="status-card warning">
-              <div class="status-topline">
-                <span>Verification</span>
-                <strong>Pending</strong>
-              </div>
-              <div class="progress-track"><span style="width:68%"></span></div>
-            </div>
-
-            <div class="status-card neutral">
-              <div class="status-topline">
-                <span>Choice Filling</span>
-                <strong>Not Started</strong>
-              </div>
-              <div class="progress-track"><span style="width:22%"></span></div>
-            </div>
-
-            <div class="notice-box">
-              <p class="eyebrow">Important</p>
-              <ul>
-                <li>Upload category certificate before 24 Oct 2026.</li>
-                <li>Medical certificate must be in PDF format.</li>
-                <li>Seat allotment result expected on 30 Oct 2026.</li>
-              </ul>
+            <div class="help-links">
+              <a href="#">New Candidate Registration</a> · <a href="#">User Manual</a>
             </div>
           </div>
         </section>
 
-        <section class="panel lower-panel">
-          <div class="section-header">
-            <h3>Dashboard Overview</h3>
-            <button class="ghost-btn" type="button">View Timeline</button>
+        <aside class="instructions-column">
+          <div class="instructions-card">
+            <h2>Important Instructions</h2>
+            <ul>
+              <li><strong>Password Confidentiality:</strong> Confidentiality of password is solely responsibility of the candidate; take care to protect it.</li>
+              <li><strong>Change Password:</strong> Candidates are advised to keep changing the Password at frequent intervals.</li>
+              <li><strong>Beware of Phishing:</strong> Never share your password and do not respond to any mail which asks for your Login-ID/Password.</li>
+              <li><strong>OTP Security:</strong> Do not share OTP sent to you.</li>
+              <li><strong>Session Security:</strong> After finishing your work, logout and close the browser.</li>
+            </ul>
           </div>
+        </aside>
+      </div>
+    </main>
 
-          <div class="cards-grid">
-            <article class="info-card accent">
-              <span class="card-icon">✅</span>
-              <div>
-                <p>Application ID</p>
-                <strong>MCC2026-45821</strong>
-              </div>
-            </article>
-
-            <article class="info-card">
-              <span class="card-icon">📘</span>
-              <div>
-                <p>Course Preference</p>
-                <strong>MBBS / BDS</strong>
-              </div>
-            </article>
-
-            <article class="info-card">
-              <span class="card-icon">🧑‍⚕️</span>
-              <div>
-                <p>Qualifying Exam</p>
-                <strong>NEET UG 2026</strong>
-              </div>
-            </article>
-
-            <article class="info-card">
-              <span class="card-icon">🔔</span>
-              <div>
-                <p>Notifications</p>
-                <strong>03 New</strong>
-              </div>
-            </article>
-          </div>
-        </section>
-      </main>
-    </div>
+    <footer class="site-footer">
+      <div class="container">
+        <small>© Medical Counselling Committee — This is a mockup for demonstration only.</small>
+      </div>
+    </footer>
 
     <script src="script.js"></script>
   </body>
