@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Step 1 — Enter NEET Roll</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="gov-header">
+    <div class="gov-left">
+      <div class="logo-mark">MCC</div>
+      <div class="gov-title">
+        <div class="org">Medical Counselling Committee (MCC), DGHS</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="registration-page">
+    <div class="registration-shell">
+      <div class="page-heading">
+        <h1>Step 1 — Enter NEET Roll</h1>
+        <p>Enter your NEET roll number to begin registration.</p>
+      </div>
+
+      <form id="step1Form">
+        <label>
+          <span>NEET Roll Number</span>
+          <input id="neet_roll_number" name="neet_roll_number" type="text" placeholder="Enter NEET roll number" required />
+        </label>
+
+        <label>
+          <span>Application Number (optional)</span>
+          <input id="application_number" name="application_number" type="text" placeholder="Enter application number" />
+        </label>
+
+        <div class="registration-actions">
+          <a href="index.html" class="secondary-btn">Cancel</a>
+          <button type="submit" class="primary-btn">Next</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    // Save roll and go to step2
+    document.getElementById('step1Form').addEventListener('submit', function(e){
+      e.preventDefault();
+      const roll = document.getElementById('neet_roll_number').value.trim();
+      const app = document.getElementById('application_number').value.trim();
+      if(!roll){ alert('Please enter your NEET roll number.'); return; }
+      localStorage.setItem('mcc_registration_roll', JSON.stringify(roll));
+      localStorage.setItem('mcc_registration_application', JSON.stringify(app));
+      // go to step2
+      window.location.href = 'step2.html';
+    });
+
+    // Preload if returning
+    (function(){
+      const existing = localStorage.getItem('mcc_registration_roll');
+      if(existing){ document.getElementById('neet_roll_number').value = JSON.parse(existing); }
+      const app = localStorage.getItem('mcc_registration_application');
+      if(app) document.getElementById('application_number').value = JSON.parse(app);
+    })();
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>

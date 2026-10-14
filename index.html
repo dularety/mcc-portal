@@ -3,17 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>MCC Portal | Candidate Sign In</title>
-    <meta
-      name="description"
-      content="Medical Counselling Committee portal for candidate registration and counselling services"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+    <title>MCC Portal — Home</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -21,116 +11,30 @@
       <div class="gov-left">
         <div class="logo-mark" aria-hidden="true">MCC</div>
         <div class="gov-title">
-          <p class="gov-kicker">Medical Counselling Committee (MCC), DGHS</p>
-          <p class="gov-subtitle">Ministry of Health &amp; Family Welfare, Government of India</p>
-          <p class="gov-cycle">NEET UG Counselling for MBBS, BDS &amp; B.Sc. Nursing 2026</p>
-        </div>
-      </div>
-      <div class="gov-right">
-        <div class="e-counselling">
-          <div class="e-badge">e</div>
-          <div class="e-text">Counselling Services</div>
+          <div class="org">Medical Counselling Committee (MCC), DGHS</div>
+          <div class="subtitle">Ministry of Health &amp; Family Welfare, Government of India</div>
+          <div class="cycle">NEET UG Counselling for MBBS, BDS &amp; B.Sc. Nursing 2026</div>
         </div>
       </div>
     </header>
 
     <nav class="main-nav">
-      <div class="main-nav__inner">
-        <a href="index.html" class="nav-link active">Home</a>
-        <a href="#" class="nav-link">Help</a>
-        <a href="#" class="nav-link">Contact</a>
+      <div class="nav-inner">
+        <a class="nav-item active" href="index.html">Home</a>
+        <a class="nav-item" href="step1.html">New Registration</a>
       </div>
     </nav>
 
-    <main class="page-shell">
-      <div class="content-grid">
-        <section class="primary-panel">
-          <div class="login-card">
-            <div class="login-header">
-              <h1>Registered Candidates Sign-In</h1>
-              <button class="secure-btn" type="button">SECURE LOGIN</button>
-            </div>
-
-            <form id="loginForm" class="login-form" method="get" action="#">
-              <label class="field">
-                <span class="field-label">Counselling <span class="required">*</span></span>
-                <select name="counselling" aria-label="Counselling option">
-                  <option>NEET UG Counselling for MBBS, BDS &amp; B.Sc. Nursing 2026</option>
-                </select>
-              </label>
-
-              <label class="field">
-                <span class="field-label">NEET UG Roll Number <span class="required">*</span></span>
-                <input type="text" name="roll_number" placeholder="Enter NEET UG Roll Number" required />
-              </label>
-
-              <label class="field">
-                <span class="field-label">Password <span class="required">*</span></span>
-                <input type="password" name="password" placeholder="Enter Password" required />
-              </label>
-
-              <div class="security-row">
-                <div class="captcha-box" aria-label="Captcha area">
-                  <div class="captcha-text">054365</div>
-                  <button type="button" id="refreshCaptcha" aria-label="Refresh captcha">↻</button>
-                </div>
-
-                <label class="field field-mini">
-                  <span class="field-label">Security Pin <span class="required">*</span></span>
-                  <input type="text" name="security_pin" placeholder="Enter Security Pin" required />
-                </label>
-              </div>
-
-              <div class="audio-row">
-                <span>Listen Security Pin Audio</span>
-                <button type="button" class="audio-btn">🔊</button>
-              </div>
-
-              <div class="form-row actions-row">
-                <button type="button" class="secondary-btn">Forgot Password</button>
-                <button type="submit" class="primary-btn">Login</button>
-              </div>
-            </form>
-
-            <div class="register-cta">
-              <a href="./registration.html" class="registration-link">New Candidate Registration</a>
-              <span>•</span>
-              <a href="#">User Manual</a>
-            </div>
-          </div>
+    <main class="page">
+      <div class="container">
+        <section class="hero-card">
+          <h2>Welcome to the MCC Registration Portal</h2>
+          <p>This demo implements a 4-step registration and payment flow similar to the MCC portal.</p>
+          <p><a class="primary-btn" href="step1.html">Start New Registration</a></p>
         </section>
-
-        <aside class="sidebar-panel">
-          <div class="instruction-card">
-            <h2>Important Instructions</h2>
-            <ul>
-              <li>
-                <strong>Password Confidentiality:</strong> Confidentiality of Password is solely responsibility
-                of the candidate and all care must be taken to protect the password.
-              </li>
-              <li>
-                <strong>Change Password:</strong> Candidates are advised to keep changing the password at
-                frequent intervals.
-              </li>
-              <li>
-                <strong>Beware of Phishing:</strong> Never share your password and do not respond to any mail
-                which asks for your login ID/password.
-              </li>
-              <li>
-                <strong>OTP Security:</strong> It is strongly recommended that the OTP sent to the candidate for
-                any activity like reset password etc. must not be shared with anyone.
-              </li>
-              <li>
-                <strong>Session Security:</strong> For security reasons, after finishing your work, log out and
-                close the browser session.
-              </li>
-            </ul>
-          </div>
-        </aside>
       </div>
     </main>
 
     <script src="script.js"></script>
   </body>
 </html>
-

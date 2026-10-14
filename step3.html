@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Step 3 — Documents</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="gov-header">
+    <div class="gov-left">
+      <div class="logo-mark">MCC</div>
+      <div class="gov-title"><div class="org">Medical Counselling Committee (MCC), DGHS</div></div>
+    </div>
+  </header>
+
+  <main class="registration-page">
+    <div class="registration-shell">
+      <div class="page-heading">
+        <h1>Step 3 — Upload Documents</h1>
+        <p>Upload your NEET score card, birth certificate and admit card.</p>
+      </div>
+
+      <form id="step3Form">
+        <label>
+          <span>NEET Score Card (PDF/JPG)</span>
+          <input id="doc_score" name="doc_score" type="file" accept=".pdf,image/*" />
+        </label>
+
+        <label>
+          <span>Birth Certificate (PDF/JPG)</span>
+          <input id="doc_birth" name="doc_birth" type="file" accept=".pdf,image/*" />
+        </label>
+
+        <label>
+          <span>NEET Admit Card (PDF/JPG)</span>
+          <input id="doc_admit" name="doc_admit" type="file" accept=".pdf,image/*" />
+        </label>
+
+        <label class="full-width">
+          <span>Additional Notes (optional)</span>
+          <textarea id="notes" name="notes" rows="3" placeholder="Any notes about documents"></textarea>
+        </label>
+
+        <div class="registration-actions">
+          <a href="step2.html" class="secondary-btn">Back</a>
+          <button type="submit" class="primary-btn">Next</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    // Save file metadata to localStorage
+    function handleFileInput(id, key){
+      const el = document.getElementById(id);
+      if(!el) return;
+      el.addEventListener('change', function(){
+        const f = el.files && el.files[0];
+        if(f){ localStorage.setItem(key, JSON.stringify({ name: f.name, size: f.size, type: f.type })); }
+        else localStorage.removeItem(key);
+      });
+      // preload not possible for file inputs
+    }
+    handleFileInput('doc_score','mcc_doc_score');
+    handleFileInput('doc_birth','mcc_doc_birth');
+    handleFileInput('doc_admit','mcc_doc_admit');
+
+    document.getElementById('step3Form').addEventListener('submit', function(e){
+      e.preventDefault();
+      localStorage.setItem('mcc_registration_notes', JSON.stringify(document.getElementById('notes').value || ''));
+      window.location.href = 'step4.html';
+    });
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>

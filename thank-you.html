@@ -4,12 +4,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registration Submitted</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -42,6 +36,8 @@
         const txn = get('mcc_payment_txn');
         const amount = get('mcc_payment_amount');
         const completed = get('mcc_registration_completed_at');
+        const sms = get('mcc_sms_sent');
+        const emailSent = get('mcc_email_sent');
 
         document.getElementById('summaryText').textContent = 'All details, documents and payment have been received. Your transaction ID is ' + (txn || 'N/A');
 
@@ -63,12 +59,11 @@
               </ul>
             </dd>
             <dt>Payment</dt><dd>Amount: ₹${amount || '0.00'} — Transaction ID: ${txn || 'N/A'}</dd>
+            <dt>SMS sent</dt><dd>${sms ? 'Yes — sent to ' + sms.to + ' at ' + new Date(sms.sentAt).toLocaleString() + '<br/><code>' + sms.text + '</code>' : 'No'}</dd>
+            <dt>Email sent</dt><dd>${emailSent ? 'Yes — sent to ' + emailSent.to + ' at ' + new Date(emailSent.sentAt).toLocaleString() + '<br/><code>' + (emailSent.subject || '') + '</code><pre>' + (emailSent.body || '') + '</pre>' : 'No'}</dd>
             <dt>Submitted At</dt><dd>${created}</dd>
           </dl>
         `;
-
-        // Optionally clear storage — commented out so user can revisit
-        // localStorage.clear();
       })();
     </script>
   </body>
