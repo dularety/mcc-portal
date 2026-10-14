@@ -29,6 +29,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  const registrationLink = document.querySelector(".registration-link");
+  if (registrationLink) {
+    registrationLink.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.location.href = "./registration.html";
+    });
+  }
+
   const navLinks = document.querySelectorAll(".nav-link");
   navLinks.forEach((link) => {
     link.addEventListener("click", () => {
