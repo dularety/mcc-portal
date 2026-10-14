@@ -14,14 +14,62 @@
   </head>
   <body>
     <main class="thankyou-page">
-      <div class="thankyou-box">
+      <div class="thankyou-box" id="confirmationBox">
         <h1>Registration Submitted</h1>
-        <p>
-          Your details have been successfully submitted to the MCC registration system.
-          Please keep your application number safe for future updates.
-        </p>
-        <a href="index.html" class="primary-btn">Return to Home</a>
+        <p id="summaryText">Loading your submission details…</p>
+        <div id="details"></div>
+        <div style="margin-top:18px;">
+          <a href="index.html" class="primary-btn">Return to Home</a>
+        </div>
       </div>
     </main>
+
+    <script>
+      (function(){
+        function get(k){ const v = localStorage.getItem(k); return v ? JSON.parse(v) : null; }
+        const roll = get('mcc_registration_roll');
+        if(!roll){ document.getElementById('summaryText').textContent = 'No recent submission found.'; return; }
+        const full = get('mcc_registration_full_name');
+        const marks = get('mcc_registration_neet_marks');
+        const rank = get('mcc_registration_neet_rank');
+        const app = get('mcc_registration_application');
+        const email = get('mcc_registration_email');
+        const mobile = get('mcc_registration_mobile');
+        const addr = get('mcc_registration_address');
+        const docScore = get('mcc_doc_score');
+        const docBirth = get('mcc_doc_birth');
+        const docAdmit = get('mcc_doc_admit');
+        const txn = get('mcc_payment_txn');
+        const amount = get('mcc_payment_amount');
+        const completed = get('mcc_registration_completed_at');
+
+        document.getElementById('summaryText').textContent = 'All details, documents and payment have been received. Your transaction ID is ' + (txn || 'N/A');
+
+        const detailsDiv = document.getElementById('details');
+        const created = completed ? new Date(completed).toLocaleString() : 'N/A';
+        detailsDiv.innerHTML = `
+          <dl>
+            <dt>Application No</dt><dd>${app || '—'}</dd>
+            <dt>NEET Roll</dt><dd>${roll}</dd>
+            <dt>Name</dt><dd>${full || '—'}</dd>
+            <dt>Marks / Rank</dt><dd>${marks || '—'} / ${rank || '—'}</dd>
+            <dt>Email / Mobile</dt><dd>${email || '—'} / ${mobile || '—'}</dd>
+            <dt>Address</dt><dd>${addr || '—'}</dd>
+            <dt>Documents submitted</dt><dd>
+              <ul>
+                <li>Score Card: ${docScore ? docScore.name : 'Not uploaded'}</li>
+                <li>Birth Certificate: ${docBirth ? docBirth.name : 'Not uploaded'}</li>
+                <li>Admit Card: ${docAdmit ? docAdmit.name : 'Not uploaded'}</li>
+              </ul>
+            </dd>
+            <dt>Payment</dt><dd>Amount: ₹${amount || '0.00'} — Transaction ID: ${txn || 'N/A'}</dd>
+            <dt>Submitted At</dt><dd>${created}</dd>
+          </dl>
+        `;
+
+        // Optionally clear storage — commented out so user can revisit
+        // localStorage.clear();
+      })();
+    </script>
   </body>
 </html>

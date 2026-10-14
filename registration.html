@@ -48,114 +48,156 @@
           <p>Complete the application details below to register for counselling.</p>
         </div>
 
-        <form
-          name="mcc-registration"
-          method="POST"
-          action="/thank-you.html"
-          class="registration-form"
-          data-netlify="true"
-          netlify
-        >
-          <input type="hidden" name="form-name" value="mcc-registration" />
-
-          <div class="form-grid">
-            <label>
-              <span>NEET Roll Number</span>
-              <input type="text" name="neet_roll_number" placeholder="Enter NEET roll number" required />
-            </label>
-
-            <label>
-              <span>Application Number</span>
-              <input type="text" name="application_number" placeholder="Enter application number" required />
-            </label>
-
-            <label>
-              <span>Full Name</span>
-              <input type="text" name="full_name" placeholder="Enter full name" required />
-            </label>
-
-            <label>
-              <span>Date of Birth</span>
-              <input type="date" name="date_of_birth" required />
-            </label>
-
-            <label>
-              <span>Category</span>
-              <select name="category" required>
-                <option value="">Select category</option>
-                <option>General</option>
-                <option>OBC-NCL</option>
-                <option>SC</option>
-                <option>ST</option>
-                <option>EWS</option>
-              </select>
-            </label>
-
-            <label>
-              <span>Gender</span>
-              <select name="gender" required>
-                <option value="">Select gender</option>
-                <option>Male</option>
-                <option>Female</option>
-                <option>Other</option>
-              </select>
-            </label>
-
-            <label>
-              <span>Mobile Number</span>
-              <input type="tel" name="mobile_number" placeholder="Enter mobile number" required />
-            </label>
-
-            <label>
-              <span>Email ID</span>
-              <input type="email" name="email" placeholder="Enter email address" required />
-            </label>
-
-            <label class="full-width">
-              <span>Permanent Address</span>
-              <textarea name="address" rows="4" placeholder="Enter permanent address" required></textarea>
-            </label>
-
-            <label>
-              <span>Course Preference</span>
-              <select name="course_preference" required>
-                <option value="">Select preference</option>
-                <option>MBBS</option>
-                <option>BDS</option>
-                <option>B.Sc. Nursing</option>
-              </select>
-            </label>
-
-            <label>
-              <span>State of Domicile</span>
-              <input type="text" name="state_of_domicile" placeholder="Enter state" required />
-            </label>
-
-            <label>
-              <span>Upload Photo</span>
-              <input type="file" name="photo" accept="image/*" />
-            </label>
-
-            <label>
-              <span>Upload Signature</span>
-              <input type="file" name="signature" accept="image/*" />
-            </label>
-
-            <label class="full-width checkbox-wrap">
-              <input type="checkbox" name="confirm" required />
-              <span>I confirm all the details entered are correct and I agree to the instructions.</span>
-            </label>
+        <div class="multi-step" id="regWizard">
+          <div class="steps-indicator">
+            <button class="step-ind active" data-step="1">1<br/><small>Roll</small></button>
+            <button class="step-ind" data-step="2">2<br/><small>Details</small></button>
+            <button class="step-ind" data-step="3">3<br/><small>Documents</small></button>
+            <button class="step-ind" data-step="4">4<br/><small>Payment</small></button>
           </div>
 
-          <div class="form-actions registration-actions">
-            <a href="index.html" class="secondary-btn ghost-link">Back to Login</a>
-            <button type="submit" class="primary-btn">Submit Registration</button>
-          </div>
-        </form>
+          <form id="multiForm" class="registration-form">
+            <!-- STEP 1 -->
+            <fieldset class="step" data-step="1">
+              <legend>Step 1 — Enter NEET Roll</legend>
+              <label>
+                <span>NEET Roll Number</span>
+                <input id="neet_roll_number" name="neet_roll_number" type="text" placeholder="Enter NEET roll number" required />
+              </label>
+
+              <label>
+                <span>Application Number (optional)</span>
+                <input id="application_number" name="application_number" type="text" placeholder="Enter application number" />
+              </label>
+
+              <div class="form-actions registration-actions">
+                <button type="button" class="secondary-btn" id="step1Next">Continue</button>
+              </div>
+            </fieldset>
+
+            <!-- STEP 2 -->
+            <fieldset class="step hidden" data-step="2">
+              <legend>Step 2 — Personal &amp; Exam Details</legend>
+
+              <div class="form-grid">
+                <label>
+                  <span>Full Name</span>
+                  <input id="full_name" name="full_name" type="text" placeholder="Full name" required />
+                </label>
+
+                <label>
+                  <span>NEET Marks</span>
+                  <input id="neet_marks" name="neet_marks" type="text" placeholder="Marks" required />
+                </label>
+
+                <label>
+                  <span>NEET Rank</span>
+                  <input id="neet_rank" name="neet_rank" type="text" placeholder="Rank" required />
+                </label>
+
+                <label>
+                  <span>Date of Birth</span>
+                  <input id="date_of_birth" name="date_of_birth" type="date" required />
+                </label>
+
+                <label>
+                  <span>Category</span>
+                  <select id="category" name="category" required>
+                    <option value="">Select category</option>
+                    <option>General</option>
+                    <option>OBC-NCL</option>
+                    <option>SC</option>
+                    <option>ST</option>
+                    <option>EWS</option>
+                  </select>
+                </label>
+
+                <label>
+                  <span>Gender</span>
+                  <select id="gender" name="gender" required>
+                    <option value="">Select gender</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+                  </select>
+                </label>
+
+                <label>
+                  <span>Mobile Number</span>
+                  <input id="mobile_number" name="mobile_number" type="tel" placeholder="Enter mobile number" required />
+                </label>
+
+                <label>
+                  <span>Email ID</span>
+                  <input id="email" name="email" type="email" placeholder="Enter email address" required />
+                </label>
+
+                <label class="full-width">
+                  <span>Permanent Address</span>
+                  <textarea id="address" name="address" rows="4" placeholder="Enter permanent address" required></textarea>
+                </label>
+              </div>
+
+              <div class="form-actions registration-actions">
+                <button type="button" class="secondary-btn" id="step2Back">Back</button>
+                <button type="button" class="primary-btn" id="step2Next">Continue</button>
+              </div>
+            </fieldset>
+
+            <!-- STEP 3 -->
+            <fieldset class="step hidden" data-step="3">
+              <legend>Step 3 — Upload Documents</legend>
+
+              <div class="form-grid">
+                <label>
+                  <span>NEET Score Card (PDF/JPG)</span>
+                  <input id="doc_score" name="doc_score" type="file" accept=".pdf,image/*" />
+                </label>
+
+                <label>
+                  <span>Birth Certificate (PDF/JPG)</span>
+                  <input id="doc_birth" name="doc_birth" type="file" accept=".pdf,image/*" />
+                </label>
+
+                <label>
+                  <span>NEET Admit Card (PDF/JPG)</span>
+                  <input id="doc_admit" name="doc_admit" type="file" accept=".pdf,image/*" />
+                </label>
+
+                <label class="full-width">
+                  <span>Additional Notes (optional)</span>
+                  <textarea id="notes" name="notes" rows="3" placeholder="Any notes about documents"></textarea>
+                </label>
+              </div>
+
+              <div class="form-actions registration-actions">
+                <button type="button" class="secondary-btn" id="step3Back">Back</button>
+                <button type="button" class="primary-btn" id="step3Next">Proceed to Payment</button>
+              </div>
+            </fieldset>
+
+            <!-- STEP 4 -->
+            <fieldset class="step hidden" data-step="4">
+              <legend>Step 4 — Payment (Rs 1000)</legend>
+
+              <p>Scan the QR code below to pay Rs. 1000.00 using your preferred UPI/payments app.</p>
+
+              <div class="qr-wrap">
+                <img id="paymentQr" alt="Payment QR code" src="" />
+              </div>
+
+              <p class="muted">After completing payment in your app, click "I have paid" to confirm.</p>
+
+              <div class="form-actions registration-actions">
+                <button type="button" class="secondary-btn" id="step4Back">Back</button>
+                <button type="button" class="primary-btn" id="confirmPayment">I have paid</button>
+              </div>
+            </fieldset>
+          </form>
+        </div>
       </div>
     </main>
 
     <script src="script.js"></script>
   </body>
 </html>
-
