@@ -67,7 +67,8 @@
         payment_amount: get('mcc_payment_amount'),
         sms: get('mcc_sms_sent'),
         email_sent: get('mcc_email_sent'),
-        completed_at: get('mcc_registration_completed_at')
+        completed_at: get('mcc_registration_completed_at'),
+        choices: get('mcc_choices')
       };
 
       function safe(v){ return v===null || v===undefined || v==='' ? '—' : v; }
@@ -101,6 +102,10 @@
             ['NEET Admit Card', docName(data.doc_admit)],
             ['Notes', safe(data.notes)]
           ]
+        },
+        {
+          title: 'College Preferences',
+          rows: (Array.isArray(data.choices) && data.choices.length ? data.choices.map(function(choice, idx){ return ['Preference #' + (idx+1), safe(choice || '—')]; }) : [['Preferences', 'No preferences saved']])
         },
         {
           title: 'Step 4 — Payment & Confirmation',
