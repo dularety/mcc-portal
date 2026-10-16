@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MCC Portal — College Preferences</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+  <style>
+    .choices-card { max-width:980px; margin:18px auto; background:#fff; border:1px solid #e6eef7; padding:20px; }
+    .pref-grid { display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+    label { display:block; font-weight:700; margin-bottom:6px; color:#1f2937; }
+    .hint { color:#616e7b; margin-bottom:12px; }
+    .actions { margin-top:18px; display:flex; gap:12px; }
+    .note { font-size:0.95rem; color:#374151; margin-top:8px; }
+    @media (max-width:760px){ .pref-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="gov-header">
+    <div class="gov-left">
+      <div class="logo-mark" aria-hidden="true">MCC</div>
+      <div class="gov-title">
+        <div class="org">Medical Counselling Committee (MCC), DGHS</div>
+      </div>
+    </div>
+    <div class="gov-right"><div class="e-counselling"><div class="e-badge">e</div><div class="e-text">Counselling Services</div></div></div>
+  </header>
+
+  <nav class="main-nav"><div class="main-nav__inner"><a href="index.html" class="nav-link">Home</a><a href="step1.html" class="nav-link active">New Registration</a></div></nav>
+
+  <main class="page-shell">
+    <div class="registration-shell choices-card">
+      <h1>Step 3.5 — College Preferences</h1>
+      <p class="hint">Select your preferred government medical colleges in order (Top 6 required). The 7th is optional.</p>
+
+      <form id="choicesForm">
+        <div class="pref-grid" id="prefsGrid">
+          <!-- selects injected by JS -->
+        </div>
+
+        <div class="note">Tip: start typing to filter colleges. Only government colleges from Bihar, West Bengal, Chhattisgarh and Jharkhand are listed.</div>
+
+        <div class="actions">
+          <a href="step3.html" class="secondary-btn">Back</a>
+          <button type="submit" class="primary-btn">Continue to Payment</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+  <script>
+    (function(){
+      // Full official government medical colleges from Bihar, West Bengal, Chhattisgarh, Jharkhand (state + central).
+      // Sources: NMC college list, State DME pages, MCC participating institutes.
+      const colleges = [
+        // Bihar
+        "All India Institute of Medical Sciences, Patna",
+        "Indira Gandhi Institute of Medical Sciences, Patna",
+        "Patna Medical College & Hospital, Patna",
+        "Nalanda Medical College & Hospital, Patna",
+        "Anugrah Narayan Magadh Medical College & Hospital, Gaya",
+        "Darbhanga Medical College & Hospital, Darbhanga",
+        "Jawaharlal Nehru Medical College & Hospital, Bhagalpur",
+        "Sri Krishna Medical College & Hospital, Muzaffarpur",
+        "Vardhman Institute of Medical Sciences, Pawapuri",
+        "Government Medical College, Bettiah",
+        "Jannayak Karpoori Thakur Medical College & Hospital, Madhepura",
+        "Government Medical College, Purnea",
+        "Banka Medical College, Banka",
+
+        // West Bengal
+        "Medical College, Kolkata",
+        "R.G. Kar Medical College & Hospital, Kolkata",
+        "Nil Ratan Sircar Medical College & Hospital, Kolkata",
+        "Calcutta National Medical College, Kolkata",
+        "Institute of Post Graduate Medical Education & Research (IPGMER), Kolkata",
+        "North Bengal Medical College, Darjeeling",
+        "Burdwan Medical College, Burdwan",
+        "Bankura Sammilani Medical College, Bankura",
+        "Midnapore Medical College, Midnapore",
+        "College of Medicine & JNM Hospital, Kalyani",
+        "College of Medicine & Sagore Dutta Hospital, Kolkata",
+        "Malda Medical College & Hospital, Malda",
+        "Murshidabad Medical College & Hospital, Murshidabad",
+        "Diamond Harbour Government Medical College & Hospital, South 24 Parganas",
+        "Rampurhat Government Medical College & Hospital, Birbhum",
+        "Raiganj Government Medical College & Hospital, Uttar Dinajpur",
+        "Cooch Behar Government Medical College & Hospital, Cooch Behar",
+        "Deben Mahata Government Medical College & Hospital, Purulia",
+        "Prafulla Chandra Sen Government Medical College, Arambagh, Hooghly",
+        "Sarat Chandra Chattopadhyay Government Medical College, Uluberia, Howrah",
+        "Barasat Government Medical College & Hospital, North 24 Parganas",
+        "Jhargram Government Medical College & Hospital, Jhargram",
+        "Tamralipta Government Medical College & Hospital, Tamluk, Purba Medinipur",
+        "Jalpaiguri Government Medical College & Hospital, Jalpaiguri",
+
+        // Chhattisgarh
+        "All India Institute of Medical Sciences, Raipur",
+        "Pt. Jawahar Lal Nehru Memorial Medical College, Raipur",
+        "Chhattisgarh Institute of Medical Sciences, Bilaspur",
+        "Late Baliram Kashyap Memorial Govt. Medical College, Jagdalpur",
+        "Government Medical College, Rajnandgaon",
+        "Government Medical College, Raigarh",
+        "Government Medical College, Mahasamund",
+        "Government Medical College, Korba",
+        "Government Medical College, Kanker",
+        "Atal Bihari Vajpayee Memorial Medical College, Rajnandgaon",
+        "Chandulal Chandrakar Memorial Medical College, Durg",
+
+        // Jharkhand
+        "Rajendra Institute of Medical Sciences (RIMS), Ranchi",
+        "Mahatma Gandhi Memorial Medical College, Jamshedpur",
+        "Shaheed Nirmal Mahto Medical College & Hospital (SNMMCH), Dhanbad",
+        "All India Institute of Medical Sciences (AIIMS), Deoghar",
+        "Palamu Medical College, Medininagar (Daltonganj)",
+        "Hazaribagh Medical College, Hazaribagh",
+        "Dumka Medical College, Dumka",
+        "Sadar Medical College, Ranchi"
+      ];
+
+      const grid = document.getElementById('prefsGrid');
+      for (let i = 1; i <= 7; i++) {
+        const wrapper = document.createElement('div');
+        const label = document.createElement('label');
+        label.textContent = (i <= 6 ? ('Preference #' + i + ' *') : ('Preference #' + i + ' (optional)'));
+        wrapper.appendChild(label);
+
+        const select = document.createElement('select');
+        select.name = 'pref' + i;
+        select.id = 'pref' + i;
+        select.className = 'preference';
+        const emptyOpt = document.createElement('option');
+        emptyOpt.value = '';
+        emptyOpt.textContent = i <= 6 ? 'Select a college' : 'None / Skip';
+        select.appendChild(emptyOpt);
+
+        colleges.forEach(c => {
+          const opt = document.createElement('option');
+          opt.value = c;
+          opt.textContent = c;
+          select.appendChild(opt);
+        });
+
+        wrapper.appendChild(select);
+        grid.appendChild(wrapper);
+      }
+
+      // initialize Choices.js to make selects searchable
+      document.querySelectorAll('select.preference').forEach(el => {
+        new Choices(el, { searchEnabled: true, shouldSort: false, placeholder: true, itemSelectText: '' });
+      });
+
+      // Load saved choices
+      try {
+        const saved = JSON.parse(localStorage.getItem('mcc_choices') || 'null');
+        if (Array.isArray(saved)) {
+          saved.forEach((val, idx) => {
+            const el = document.getElementById('pref' + (idx+1));
+            if (el && val) el.value = val;
+          });
+        }
+      } catch (e) {}
+
+      function validateUnique(){
+        const values = [];
+        let ok = true;
+        for (let i=1;i<=6;i++){
+          const v = document.getElementById('pref'+i).value;
+          if (!v) { ok = false; }
+          values.push(v);
+        }
+        const set = new Set(values.filter(Boolean));
+        if (set.size !== values.filter(Boolean).length) ok = false;
+        return { valid: ok, values };
+      }
+
+      function showAlert(msg){
+        let s = document.getElementById('choicesAlert');
+        if(!s){
+          s = document.createElement('div');
+          s.id = 'choicesAlert';
+          s.style.color = '#b91c1c';
+          s.style.marginTop = '12px';
+          document.querySelector('.registration-shell').appendChild(s);
+        }
+        s.textContent = msg;
+      }
+
+      document.getElementById('choicesForm').addEventListener('submit', function(e){
+        e.preventDefault();
+        const check = validateUnique();
+        if (!check.valid) {
+          showAlert('Please fill top 6 preferences and ensure they are all different.');
+          return;
+        }
+        const prefs = [];
+        for (let i=1;i<=7;i++){
+          const v = document.getElementById('pref'+i).value;
+          prefs.push(v || '');
+        }
+        localStorage.setItem('mcc_choices', JSON.stringify(prefs));
+        window.location.href = 'step4.html';
+      });
+
+      // disable options selected in other selects to help keep uniqueness
+      function refreshOptions(){
+        const selected = {};
+        for (let i=1;i<=6;i++){
+          const v = document.getElementById('pref'+i).value;
+          if (v) selected[v] = true;
+        }
+        for (let i=1;i<=7;i++){
+          const select = document.getElementById('pref'+i);
+          Array.from(select.options).forEach(opt => {
+            if (opt.value === '') return opt.disabled = false;
+            if (select.value === opt.value) return opt.disabled = false;
+            opt.disabled = !!selected[opt.value];
+          });
+        }
+      }
+
+      for (let i=1;i<=7;i++){
+        document.getElementById('pref'+i).addEventListener('change', function(){
+          refreshOptions();
+        });
+      }
+      // initial
+      refreshOptions();
+    })();
+  </script>
+</body>
+</html>
