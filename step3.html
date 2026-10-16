@@ -105,7 +105,8 @@
       document.getElementById('step3Form').addEventListener('submit', function(e){
         e.preventDefault();
         localStorage.setItem('mcc_registration_notes', JSON.stringify(document.getElementById('notes').value || ''));
-        window.location.href = 'step4.html';
+        // Redirect to the college preferences step (new page) before payment
+        window.location.href = 'choices.html';
       });
     </script>
   </body>
