@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Confirmation — Registration Summary</title>
+  <style>
+    :root{
+      --max-width: 920px;
+      --muted:#6b7280;
+      --border:#e5e7eb;
+      --accent:#0b5fff;
+      --card-bg:#fff;
+      --page-bg:#f7f8fa;
+      --section-padding:28px;
+      --heading-font: "Helvetica Neue", Arial, sans-serif;
+    }
+    html,body{
+      height:100%;
+      margin:0;
+      font-family:var(--heading-font);
+      background:var(--page-bg);
+      color:#111827;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    .container{
+      max-width:var(--max-width);
+      margin:28px auto;
+      background:var(--card-bg);
+      border:1px solid var(--border);
+      box-shadow:0 1px 0 rgba(0,0,0,0.02);
+    }
+    header{
+      padding:28px 32px;
+    }
+    h1{
+      font-size:28px;
+      margin:0 0 10px 0;
+      font-weight:700;
+    }
+    .lead{
+      color:var(--muted);
+      margin:0 0 6px 0;
+    }
+    .body{
+      border-top:1px solid var(--border);
+    }
+    .section{
+      padding:var(--section-padding) 32px;
+      border-bottom:1px solid var(--border);
+    }
+    .section h2{
+      margin:0 0 14px 0;
+      font-size:20px;
+      font-weight:700;
+    }
+    .row{
+      display:flex;
+      gap:40px;
+      align-items:flex-start;
+    }
+    .col{
+      flex:1;
+    }
+    .field{
+      margin-bottom:12px;
+    }
+    .field .label{
+      display:block;
+      font-weight:700;
+      margin-bottom:6px;
+    }
+    .field .value{
+      color:#111827;
+      line-height:1.4;
+      white-space:pre-wrap;
+    }
+    .muted{
+      color:var(--muted);
+    }
+    .preferences{
+      margin-top:8px;
+    }
+    .preferences li{
+      margin-bottom:8px;
+      list-style:none;
+      padding-left:0;
+      color:#111827;
+    }
+    .documents-list li{
+      margin-bottom:6px;
+      color:#111827;
+    }
+    .actions{
+      display:flex;
+      gap:12px;
+      padding:18px 32px;
+      justify-content:flex-start;
+      align-items:center;
+    }
+    .btn{
+      background:#fff;
+      border:1px solid var(--border);
+      padding:10px 14px;
+      border-radius:4px;
+      cursor:pointer;
+      font-weight:600;
+    }
+    .btn-primary{
+      background:var(--accent);
+      color:#fff;
+      border-color:var(--accent);
+    }
+    .right{
+      text-align:right;
+    }
+    .small{
+      font-size:13px;
+      color:var(--muted);
+    }
+    .timeline{
+      padding:18px 32px;
+      border-top:1px dashed var(--border);
+    }
+    .timeline h3{
+      margin:0 0 12px 0;
+      font-size:16px;
+    }
+    .timeline-list{
+      margin:0;
+      padding:0;
+      list-style:none;
+    }
+    .timeline-list li{
+      padding:10px 0;
+      border-bottom:1px dashed var(--border);
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:center;
+    }
+    .timeline-list li .meta{
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    @media print{
+      body{background:#fff;}
+      .container{border:0;box-shadow:none;}
+      .actions{display:none;}
+      .timeline{page-break-after:auto;}
+    }
+
+    @media (max-width:740px){
+      .row{flex-direction:column; gap:18px;}
+      .actions{flex-direction:column; align-items:stretch;}
+      .right{text-align:left;}
+    }
+  </style>
+</head>
+<body>
+  <main class="container" role="main" aria-labelledby="pageTitle">
+    <header>
+      <h1 id="pageTitle">Confirmation — Registration Summary</h1>
+      <p class="lead">Below is the information you submitted in each step. Keep this for your records.</p>
+    </header>
+
+    <div class="body" id="contentArea">
+      <section class="section" aria-labelledby="step1Title">
+        <h2 id="step1Title">Step 1 — Application & Roll</h2>
+        <div class="row">
+          <div class="col">
+            <div class="field">
+              <span class="label">Application Number</span>
+              <div class="value" id="applicationNumber">—</div>
+            </div>
+
+            <div class="field">
+              <span class="label">NEET Roll Number</span>
+              <div class="value" id="neetRoll">—</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="step2Title">
+        <h2 id="step2Title">Step 2 — Candidate Details</h2>
+        <div class="row">
+          <div class="col">
+            <div class="field">
+              <span class="label">Full Name</span>
+              <div class="value" id="fullName">—</div>
+            </div>
+
+            <div class="field">
+              <span class="label">NEET Marks / Rank</span>
+              <div class="value" id="marksRank">—</div>
+            </div>
+
+            <div class="field">
+              <span class="label">Date of Birth</span>
+              <div class="value" id="dob">—</div>
+            </div>
+
+            <div class="field">
+              <span class="label">Category</span>
+              <div class="value" id="category">—</div>
+            </div>
+
+            <div class="field">
+              <span class="label">Gender</span>
+              <div class="value" id="gender">—</div>
+            </div>
+
+            <div class="field">
+              <span class="label">Email / Mobile</span>
+              <div class="value" id="emailMobile">—</div>
+            </div>
+
+            <div class="field">
+              <span class="label">Permanent Address</span>
+              <div class="value" id="address">—</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="step3Title">
+        <h2 id="step3Title">Step 3 — Documents</h2>
+        <div class="row">
+          <div class="col">
+            <ul class="documents-list" id="documentsList"></ul>
+          </div>
+        </div>
+
+        <div style="margin-top:18px;">
+          <h2 style="font-size:20px; margin-bottom:12px;">College Preferences</h2>
+          <ol class="preferences" id="preferencesList"></ol>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="step4Title">
+        <h2 id="step4Title">Step 4 — Payment & Confirmation</h2>
+
+        <div class="field">
+          <span class="label">Payment Amount</span>
+          <div class="value" id="paymentAmount">—</div>
+        </div>
+
+        <div class="field">
+          <span class="label">Transaction ID</span>
+          <div class="value" id="transactionId">—</div>
+        </div>
+
+        <div class="field">
+          <span class="label">SMS (simulated)</span>
+          <div class="value small muted" id="smsText">—</div>
+        </div>
+
+        <div class="field">
+          <span class="label">Confirmation Email (simulated)</span>
+          <div class="value small muted" id="emailText">—</div>
+        </div>
+
+        <div class="field">
+          <span class="label">Submitted At</span>
+          <div class="value small" id="submittedAt">—</div>
+        </div>
+      </section>
+
+      <div class="timeline" aria-labelledby="timelineTitle">
+        <h3 id="timelineTitle">Timeline (previous submissions)</h3>
+        <ul class="timeline-list" id="timelineList"></ul>
+      </div>
+
+      <div class="actions" role="region" aria-label="Actions">
+        <button class="btn btn-primary" id="printBtn">Print / Save PDF</button>
+        <button class="btn" id="returnBtn">Return Home</button>
+        <button class="btn" id="startAnotherBtn">Start Another Registration</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Demo fallback data (only used when sessionStorage.confirmInfo is missing)
+    const sampleData = {
+      applicationNumber: '260410764040',
+      neetRollNumber: '2603209373',
+      fullName: 'ANNI PRIYA',
+      neetMarksRank: '596 / 11057',
+      dateOfBirth: '2006-10-02',
+      category: 'General',
+      gender: 'Female',
+      email: 'annipriyarolln@gmail.com',
+      mobile: '7979709641',
+      permanentAddress: 'UPKAR NAGAR KADRU NEAR DAV KAPILDEV PUBLIC SCHOOL',
+      documents: ['SCORE CARD.jpeg', 'BIRTH CERTIFICATE.jpeg', 'ADMIT CARD.jpeg'],
+      preferences: [
+        'Nalanda Medical College & Hospital, Patna',
+        'Darbhanga Medical College & Hospital, Darbhanga',
+        'Pt. Jawahar Lal Nehru Memorial Medical College, Raipur',
+        'Calcutta National Medical College, Kolkata',
+        'Shaheed Nirmal Mahto Medical College & Hospital (SNMMCH), Dhanbad',
+        'Hazaribagh Medical College, Hazaribagh',
+        'Government Medical College, Bettiah'
+      ],
+      paymentAmount: '₹10000.00',
+      transactionId: 'TXN420041',
+      submittedAt: '2026-10-17T08:48:47Z'
+    };
+
+    function formatLocal(dateString) {
+      try {
+        const d = new Date(dateString);
+        if (isNaN(d)) return dateString;
+        return d.toLocaleString();
+      } catch(e) {
+        return dateString;
+      }
+    }
+
+    function render(info) {
+      document.getElementById('applicationNumber').textContent = info.applicationNumber || '—';
+      document.getElementById('neetRoll').textContent = info.neetRollNumber || '—';
+      document.getElementById('fullName').textContent = info.fullName || '—';
+      document.getElementById('marksRank').textContent = info.neetMarksRank || '—';
+      document.getElementById('dob').textContent = info.dateOfBirth || '—';
+      document.getElementById('category').textContent = info.category || '—';
+      document.getElementById('gender').textContent = info.gender || '—';
+      document.getElementById('emailMobile').textContent = (info.email || '—') + (info.mobile ? ' / ' + info.mobile : '');
+      document.getElementById('address').textContent = info.permanentAddress || '—';
+
+      const docs = document.getElementById('documentsList');
+      docs.innerHTML = '';
+      (info.documents || []).forEach(d => {
+        const li = document.createElement('li');
+        li.textContent = d;
+        docs.appendChild(li);
+      });
+
+      const prefs = document.getElementById('preferencesList');
+      prefs.innerHTML = '';
+      (info.preferences || []).forEach(p => {
+        const li = document.createElement('li');
+        li.textContent = p;
+        prefs.appendChild(li);
+      });
+
+      document.getElementById('paymentAmount').textContent = info.paymentAmount || '—';
+      document.getElementById('transactionId').textContent = info.transactionId || '—';
+
+      const sms = (info.mobile ? info.mobile + ': ' : '') + 'Payment received for MCC application. Transaction ID: ' + (info.transactionId || '—') + '. Amount: ' + (info.paymentAmount || '—');
+      document.getElementById('smsText').textContent = sms;
+      document.getElementById('emailText').textContent = (info.email || '—') + ': MCC Registration Confirmation';
+      document.getElementById('submittedAt').textContent = formatLocal(info.submittedAt || new Date().toISOString());
+    }
+
+    // Load timeline from localStorage but DO NOT modify it.
+    function loadTimeline() {
+      try {
+        const raw = localStorage.getItem('confirmTimeline');
+        return raw ? JSON.parse(raw) : [];
+      } catch(e) {
+        return [];
+      }
+    }
+
+    function renderTimeline(list) {
+      const ul = document.getElementById('timelineList');
+      ul.innerHTML = '';
+      if (!list || !list.length) {
+        const li = document.createElement('li');
+        li.innerHTML = '<div class="meta muted">No previous submissions</div>';
+        ul.appendChild(li);
+        return;
+      }
+      list.forEach(item => {
+        const li = document.createElement('li');
+        const left = document.createElement('div');
+        const title = item.label || (item.confirmInfo && (item.confirmInfo.fullName || item.confirmInfo.applicationNumber)) || 'Submission';
+        const txn = item.confirmInfo && item.confirmInfo.transactionId ? ('Txn: ' + item.confirmInfo.transactionId) : '';
+        left.innerHTML = '<strong>' + title + '</strong><div class="meta">' + txn + '</div>';
+        const right = document.createElement('div');
+        right.className = 'meta';
+        right.textContent = formatLocal(item.createdAt || (item.confirmInfo && item.confirmInfo.submittedAt) || '');
+        li.appendChild(left);
+        li.appendChild(right);
+        ul.appendChild(li);
+      });
+    }
+
+    (function(){
+      // 1) Try to read one-time confirm info from sessionStorage and then remove it.
+      let info = null;
+      try {
+        const raw = sessionStorage.getItem('confirmInfo');
+        if (raw) {
+          info = JSON.parse(raw);
+          if (!info.submittedAt) info.submittedAt = new Date().toISOString();
+          // Important: clear it now so this one-time data won't re-appear
+          sessionStorage.removeItem('confirmInfo');
+        }
+      } catch(e) {
+        console.warn('Failed to parse session confirmInfo', e);
+      }
+
+      // 2) If no one-time info, fallback to sample data (for demo). In production you may want to redirect to /dashboard.
+      if (!info) info = sampleData;
+
+      // 3) Render the one-time info
+      render(info);
+
+      // 4) Render existing saved timeline from localStorage WITHOUT modifying it
+      renderTimeline(loadTimeline());
+    })();
+
+    // Buttons behavior (update URLs to your app)
+    document.getElementById('printBtn').addEventListener('click', () => window.print());
+    document.getElementById('returnBtn').addEventListener('click', () => {
+      window.location.href = '/';
+    });
+    document.getElementById('startAnotherBtn').addEventListener('click', () => {
+      window.location.href = '/start-registration';
+    });
+  </script>
+</body>
+</html>
