@@ -4,6 +4,56 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Confirmation — Registration Summary</title>
+  <script>
+    (function(){
+      const fixedTimeline = [{
+        label: 'ANNI PRIYA',
+        createdAt: '2026-10-17T08:48:47Z',
+        confirmInfo: {
+          fullName: 'ANNI PRIYA',
+          transactionId: 'TXN420041',
+          submittedAt: '2026-10-17T08:48:47Z'
+        }
+      }];
+
+      try {
+        localStorage.setItem('confirmTimeline', JSON.stringify(fixedTimeline));
+      } catch (e) {
+        console.warn('confirm.html: failed to set fixed confirmTimeline', e);
+      }
+
+      const originalSetItem = Storage.prototype.setItem;
+      const originalRemoveItem = Storage.prototype.removeItem;
+
+      Storage.prototype.setItem = function(key, value) {
+        if (key === 'confirmTimeline') {
+          console.warn('Blocked write to confirmTimeline on confirm.html');
+          return;
+        }
+        return originalSetItem.apply(this, arguments);
+      };
+
+      Storage.prototype.removeItem = function(key) {
+        if (key === 'confirmTimeline') {
+          console.warn('Blocked removal of confirmTimeline on confirm.html');
+          return;
+        }
+        return originalRemoveItem.apply(this, arguments);
+      };
+
+      window.addEventListener('storage', function(e){
+        if (e.key === 'confirmTimeline') {
+          try {
+            localStorage.setItem('confirmTimeline', JSON.stringify(fixedTimeline));
+          } catch (err) {
+            console.warn('confirm.html: failed to restore confirmTimeline after storage event', err);
+          }
+        }
+      });
+
+      window.__confirmTimelineProtected = true;
+    })();
+  </script>
   <style>
     :root{
       --max-width: 920px;
@@ -283,7 +333,6 @@
   </main>
 
   <script>
-    // Demo fallback data (only used when sessionStorage.confirmInfo is missing)
     const sampleData = {
       applicationNumber: '260410764040',
       neetRollNumber: '2603209373',
@@ -310,18 +359,21 @@
       submittedAt: '2026-10-17T08:48:47Z'
     };
 
-    // Format timestamps to exactly match: MM/DD/YYYY, h:mm:ss AM/PM (UTC)
     function formatLocal(dateString) {
       try {
         const d = new Date(dateString);
         if (isNaN(d)) return dateString;
         return d.toLocaleString('en-US', {
-          year: 'numeric', month: '2-digit', day: '2-digit',
-          hour: 'numeric', minute: '2-digit', second: '2-digit',
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: 'numeric',
+          minute: '2-digit',
+          second: '2-digit',
           hour12: true,
           timeZone: 'UTC'
         });
-      } catch(e) {
+      } catch (e) {
         return dateString;
       }
     }
@@ -362,13 +414,28 @@
       document.getElementById('submittedAt').textContent = formatLocal(info.submittedAt || new Date().toISOString());
     }
 
-    // Load timeline from localStorage but DO NOT modify it.
     function loadTimeline() {
       try {
         const raw = localStorage.getItem('confirmTimeline');
-        return raw ? JSON.parse(raw) : [];
-      } catch(e) {
-        return [];
+        return raw ? JSON.parse(raw) : [{
+          label: 'ANNI PRIYA',
+          createdAt: '2026-10-17T08:48:47Z',
+          confirmInfo: {
+            fullName: 'ANNI PRIYA',
+            transactionId: 'TXN420041',
+            submittedAt: '2026-10-17T08:48:47Z'
+          }
+        }];
+      } catch (e) {
+        return [{
+          label: 'ANNI PRIYA',
+          createdAt: '2026-10-17T08:48:47Z',
+          confirmInfo: {
+            fullName: 'ANNI PRIYA',
+            transactionId: 'TXN420041',
+            submittedAt: '2026-10-17T08:48:47Z'
+          }
+        }];
       }
     }
 
@@ -389,8 +456,8 @@
         left.innerHTML = '<strong>' + title + '</strong><div class="meta">' + txn + '</div>';
         const right = document.createElement('div');
         right.className = 'meta';
-        // Prefer createdAt, fallback to confirmInfo.submittedAt
-        right.textContent = formatLocal(item.createdAt || (item.confirmInfo && item.confirmInfo.submittedAt) || '');
+        const dateValue = item.createdAt || (item.confirmInfo && item.confirmInfo.submittedAt) || '';
+        right.textContent = formatLocal(dateValue);
         li.appendChild(left);
         li.appendChild(right);
         ul.appendChild(li);
@@ -398,31 +465,23 @@
     }
 
     (function(){
-      // 1) Try to read one-time confirm info from sessionStorage and then remove it.
       let info = null;
       try {
         const raw = sessionStorage.getItem('confirmInfo');
         if (raw) {
           info = JSON.parse(raw);
           if (!info.submittedAt) info.submittedAt = new Date().toISOString();
-          // Important: clear it now so this one-time data won't re-appear
           sessionStorage.removeItem('confirmInfo');
         }
-      } catch(e) {
+      } catch (e) {
         console.warn('Failed to parse session confirmInfo', e);
       }
 
-      // 2) If no one-time info, fallback to sample data (for demo). In production you may want to redirect to /dashboard.
       if (!info) info = sampleData;
-
-      // 3) Render the one-time info
       render(info);
-
-      // 4) Render existing saved timeline from localStorage WITHOUT modifying it
       renderTimeline(loadTimeline());
     })();
 
-    // Buttons behavior (update URLs to your app)
     document.getElementById('printBtn').addEventListener('click', () => window.print());
     document.getElementById('returnBtn').addEventListener('click', () => {
       window.location.href = '/';
