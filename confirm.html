@@ -17,9 +17,11 @@
       }];
 
       try {
-        localStorage.setItem('confirmTimeline', JSON.stringify(fixedTimeline));
+        if (!localStorage.getItem('confirmTimeline')) {
+          localStorage.setItem('confirmTimeline', JSON.stringify(fixedTimeline));
+        }
       } catch (e) {
-        console.warn('confirm.html: failed to set fixed confirmTimeline', e);
+        console.warn('confirm.html: failed to seed confirmTimeline', e);
       }
 
       const originalSetItem = Storage.prototype.setItem;
@@ -42,7 +44,7 @@
       };
 
       window.addEventListener('storage', function(e){
-        if (e.key === 'confirmTimeline') {
+        if (e.key === 'confirmTimeline' && !localStorage.getItem('confirmTimeline')) {
           try {
             localStorage.setItem('confirmTimeline', JSON.stringify(fixedTimeline));
           } catch (err) {
