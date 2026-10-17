@@ -6,54 +6,38 @@
   <title>Confirmation — Registration Summary</title>
   <script>
     (function(){
-      const fixedTimeline = [{
-        label: 'ANNI PRIYA',
-        createdAt: '2026-10-17T08:48:47Z',
-        confirmInfo: {
-          fullName: 'ANNI PRIYA',
-          transactionId: 'TXN420041',
-          submittedAt: '2026-10-17T08:48:47Z'
-        }
-      }];
+      function resetTimelineIfNeeded() {
+        const fixedTimeline = [{
+          label: 'ANNI PRIYA',
+          createdAt: '2026-10-17T08:48:47Z',
+          confirmInfo: {
+            fullName: 'ANNI PRIYA',
+            transactionId: 'TXN420041',
+            submittedAt: '2026-10-17T08:48:47Z'
+          }
+        }];
 
-      try {
-        if (!localStorage.getItem('confirmTimeline')) {
-          localStorage.setItem('confirmTimeline', JSON.stringify(fixedTimeline));
+        try {
+          const hasResetParam = new URLSearchParams(window.location.search).get('resetTimeline') === '1';
+          if (hasResetParam) {
+            localStorage.setItem('confirmTimeline', JSON.stringify(fixedTimeline));
+            sessionStorage.removeItem('confirmInfo');
+            const cleanUrl = window.location.origin + window.location.pathname;
+            history.replaceState({}, '', cleanUrl);
+            return true;
+          }
+
+          const current = localStorage.getItem('confirmTimeline');
+          if (!current) {
+            localStorage.setItem('confirmTimeline', JSON.stringify(fixedTimeline));
+          }
+        } catch (e) {
+          console.warn('confirm.html: timeline reset failed', e);
         }
-      } catch (e) {
-        console.warn('confirm.html: failed to seed confirmTimeline', e);
+        return false;
       }
 
-      const originalSetItem = Storage.prototype.setItem;
-      const originalRemoveItem = Storage.prototype.removeItem;
-
-      Storage.prototype.setItem = function(key, value) {
-        if (key === 'confirmTimeline') {
-          console.warn('Blocked write to confirmTimeline on confirm.html');
-          return;
-        }
-        return originalSetItem.apply(this, arguments);
-      };
-
-      Storage.prototype.removeItem = function(key) {
-        if (key === 'confirmTimeline') {
-          console.warn('Blocked removal of confirmTimeline on confirm.html');
-          return;
-        }
-        return originalRemoveItem.apply(this, arguments);
-      };
-
-      window.addEventListener('storage', function(e){
-        if (e.key === 'confirmTimeline' && !localStorage.getItem('confirmTimeline')) {
-          try {
-            localStorage.setItem('confirmTimeline', JSON.stringify(fixedTimeline));
-          } catch (err) {
-            console.warn('confirm.html: failed to restore confirmTimeline after storage event', err);
-          }
-        }
-      });
-
-      window.__confirmTimelineProtected = true;
+      resetTimelineIfNeeded();
     })();
   </script>
   <style>
